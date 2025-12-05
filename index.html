@@ -1,1739 +1,1412 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Sardar Patel University – Digital Campus</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <style>
-        /* =========================================
-           DESIGN TOKENS – DARK THEME (DEFAULT)
-        ==========================================*/
-        :root {
-            --bg: #050816;
-            --bg-soft: #0b1220;
-            --surface: rgba(15, 23, 42, 0.96);
-            --surface-soft: rgba(15, 23, 42, 0.90);
-
-            --primary: #4f46e5;      /* rich indigo */
-            --primary-soft: #312e81;
-            --primary-subtle: #a5b4fc;
-            --accent: #f97316;       /* warm orange */
-
-            --text-main: #e5e7eb;
-            --text-muted: #9ca3af;
-            --border-subtle: rgba(148, 163, 184, 0.4);
-            --shadow-soft: 0 26px 60px rgba(0, 0, 0, 0.7);
-
-            --radius-xl: 1.7rem;
-            --radius-lg: 1.3rem;
-            --radius-md: 1rem;
-            --transition-fast: 0.18s ease-out;
-            --transition-med: 0.3s ease-out;
-        }
-
-        /* =========================================
-           LIGHT THEME OVERRIDES
-        ==========================================*/
-        body.light {
-            --bg: #f3f4f9;
-            --bg-soft: #e5edff;
-            --surface: #ffffff;
-            --surface-soft: #f9fafb;
-
-            --primary: #1d4ed8;
-            --primary-soft: #dbeafe;
-            --primary-subtle: #2563eb;
-            --accent: #f97316;
-
-            --text-main: #020617;
-            --text-muted: #6b7280;
-            --border-subtle: #e5e7eb;
-            --shadow-soft: 0 22px 40px rgba(15, 23, 42, 0.16);
-        }
-
-        /* =========================================
-           GLOBAL BASE
-        ==========================================*/
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background:
-                radial-gradient(circle at top, rgba(37, 99, 235, 0.45), transparent 55%),
-                radial-gradient(circle at bottom left, rgba(249, 115, 22, 0.35), transparent 60%),
-                radial-gradient(circle at bottom right, rgba(14, 165, 233, 0.18), transparent 55%),
-                linear-gradient(135deg, var(--bg-soft), var(--bg));
-            color: var(--text-main);
-            line-height: 1.6;
-            min-height: 100vh;
-            transition: background 0.4s var(--transition-med), color 0.4s var(--transition-med);
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        img {
-            max-width: 100%;
-            display: block;
-        }
-
-        /* =========================================
-           HEADER / NAVBAR
-        ==========================================*/
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            backdrop-filter: blur(20px);
-            background: linear-gradient(
-                to right,
-                rgba(15, 23, 42, 0.92),
-                rgba(15, 23, 42, 0.96)
-            );
-            border-bottom: 1px solid rgba(148, 163, 184, 0.35);
-        }
-
-        body.light header {
-            background: linear-gradient(
-                to right,
-                rgba(248, 250, 252, 0.96),
-                rgba(241, 245, 249, 0.96)
-            );
-            border-bottom-color: rgba(148, 163, 184, 0.25);
-        }
-
-        .nav-shell {
-            max-width: 1180px;
-            margin: 0 auto;
-            padding: 0.65rem 1.4rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-        }
-
-        .brand-logo {
-            width: 34px;
-            height: 34px;
-            border-radius: 999px;
-            object-fit: cover;
-            box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.9);
-        }
-
-        body.light .brand-logo {
-            box-shadow: 0 0 0 2px #e5e7eb;
-        }
-
-        .brand-text {
-            display: flex;
-            flex-direction: column;
-            gap: 0.08rem;
-        }
-
-        .brand-title {
-            font-weight: 700;
-            font-size: 1.1rem;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
-        }
-
-        .brand-subtitle {
-            font-size: 0.72rem;
-            color: var(--text-muted);
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 0.35rem;
-            background: rgba(15, 23, 42, 0.75);
-            padding: 0.12rem;
-            border-radius: 999px;
-            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.5);
-        }
-
-        body.light nav ul {
-            background: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
-        }
-
-        nav li {
-            border-radius: 999px;
-            overflow: hidden;
-        }
-
-        nav a {
-            display: block;
-            font-size: 0.83rem;
-            padding: 0.45rem 0.95rem;
-            color: #e5e7eb;
-            transition:
-                background var(--transition-fast),
-                color var(--transition-fast),
-                transform var(--transition-fast);
-        }
-
-        body.light nav a {
-            color: #0f172a;
-        }
-
-        nav a:hover {
-            background: rgba(148, 163, 184, 0.3);
-            transform: translateY(-1px);
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .pill-label {
-            font-size: 0.7rem;
-            padding: 0.2rem 0.6rem;
-            border-radius: 999px;
-            border: 1px solid rgba(148, 163, 184, 0.6);
-            color: var(--primary-subtle);
-            background: radial-gradient(circle at top left, rgba(129, 140, 248, 0.28), transparent 60%);
-        }
-
-        body.light .pill-label {
-            color: #4338ca;
-            background: rgba(219, 234, 254, 0.9);
-        }
-
-        .toggle-theme {
-            border-radius: 999px;
-            border: 1px solid rgba(148, 163, 184, 0.7);
-            background: rgba(15, 23, 42, 0.85);
-            color: #e5e7eb;
-            padding: 0.28rem 0.8rem;
-            font-size: 0.78rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            cursor: pointer;
-            transition:
-                background var(--transition-fast),
-                transform var(--transition-fast),
-                border-color var(--transition-fast),
-                box-shadow var(--transition-fast);
-        }
-
-        body.light .toggle-theme {
-            background: #ffffff;
-            color: #0f172a;
-        }
-
-        .toggle-theme span {
-            font-size: 1rem;
-        }
-
-        .toggle-theme:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 14px 30px rgba(15, 23, 42, 0.45);
-            border-color: rgba(248, 250, 252, 0.9);
-        }
-
-        /* HAMBURGER BUTTON (HIDDEN ON DESKTOP) */
-        .nav-toggle {
-            display: none;
-            border: none;
-            background: rgba(15, 23, 42, 0.9);
-            color: #e5e7eb;
-            border-radius: 999px;
-            padding: 0.25rem 0.7rem;
-            font-size: 1.1rem;
-            cursor: pointer;
-        }
-
-        body.light .nav-toggle {
-            background: #ffffff;
-            color: #0f172a;
-            border: 1px solid rgba(148, 163, 184, 0.6);
-        }
-
-        /* =========================================
-           LAYOUT SHELL
-        ==========================================*/
-        .shell {
-            max-width: 1180px;
-            margin: 0 auto;
-            padding: 2.6rem 1.4rem 3.4rem;
-        }
-
-        section {
-            margin-bottom: 2.3rem;
-        }
-
-        .card-section {
-            background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.14), transparent 50%),
-                        radial-gradient(circle at bottom right, rgba(249, 115, 22, 0.14), transparent 55%),
-                        var(--surface);
-            border-radius: var(--radius-xl);
-            padding: 2.2rem 1.9rem;
-            box-shadow: var(--shadow-soft);
-            border: 1px solid var(--border-subtle);
-            position: relative;
-            overflow: hidden;
-        }
-
-        body.light .card-section {
-            background: linear-gradient(135deg, #ffffff, #f9fafb);
-        }
-
-        .card-section::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            opacity: 0.5;
-            mix-blend-mode: soft-light;
-            pointer-events: none;
-            background-image:
-                radial-gradient(circle at 0 0, rgba(148, 163, 184, 0.35), transparent 55%),
-                radial-gradient(circle at 100% 100%, rgba(37, 99, 235, 0.25), transparent 55%);
-        }
-
-        .card-section-inner {
-            position: relative;
-            z-index: 1;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            margin-bottom: 1.4rem;
-        }
-
-        .section-title {
-            font-size: 1.7rem;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            color: var(--primary-subtle);
-        }
-
-        body.light .section-title {
-            color: #1d4ed8;
-        }
-
-        .section-subtitle {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            max-width: 30rem;
-        }
-
-        .section-tag {
-            font-size: 0.75rem;
-            padding: 0.24rem 0.65rem;
-            border-radius: 999px;
-            border: 1px dashed rgba(148, 163, 184, 0.8);
-            align-self: flex-start;
-        }
-
-        /* =========================================
-           HERO – PREMIUM GRADIENT
-        ==========================================*/
-        #hero {
-            max-width: 1180px;
-            margin: 2rem auto 2.7rem;
-            padding: 0 1.4rem;
-        }
-
-        .hero-banner {
-            position: relative;
-            border-radius: 2rem;
-            overflow: hidden;
-            box-shadow: var(--shadow-soft);
-            border: 1px solid rgba(148, 163, 184, 0.45);
-            min-height: 280px;
-            background:
-                radial-gradient(circle at top left, rgba(59,130,246,0.36), transparent 55%),
-                radial-gradient(circle at top right, rgba(236, 72, 153, 0.32), transparent 60%),
-                radial-gradient(circle at bottom, rgba(249,115,22,0.32), transparent 55%),
-                linear-gradient(135deg, #020617, #020617 50%, #111827);
-            transform: translateY(0) scale(1);
-            transition: transform var(--transition-med), box-shadow var(--transition-med), border-color var(--transition-med);
-        }
-
-        body.light .hero-banner {
-            background:
-                radial-gradient(circle at 0% 0%, rgba(59,130,246,0.18), transparent 55%),
-                radial-gradient(circle at 100% 0%, rgba(236,72,153,0.16), transparent 55%),
-                linear-gradient(135deg, #eff6ff, #fdf2ff);
-        }
-
-        .hero-banner::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background-image: linear-gradient(
-                120deg,
-                rgba(148, 163, 184, 0.12) 0,
-                transparent 18%,
-                transparent 82%,
-                rgba(148, 163, 184, 0.16) 100%
-            );
-            mix-blend-mode: soft-light;
-            opacity: 0.8;
-            pointer-events: none;
-        }
-
-        .hero-banner:hover {
-            transform: translateY(-5px) scale(1.004);
-            box-shadow: 0 36px 80px rgba(0, 0, 0, 0.85);
-            border-color: rgba(191, 219, 254, 0.85);
-        }
-
-        .hero-overlay {
-            position: relative;
-            z-index: 1;
-            display: grid;
-            grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-            padding: 2.2rem 2.2rem 2.3rem;
-            gap: 1.8rem;
-        }
-
-        @media (max-width: 820px) {
-            .hero-overlay {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .hero-left {
-            max-width: 36rem;
-        }
-
-        .badge-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.6rem;
-            margin-bottom: 1rem;
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.45rem;
-            padding: 0.18rem 0.75rem;
-            border-radius: 999px;
-            background: rgba(15, 23, 42, 0.55);
-            border: 1px solid rgba(191, 219, 254, 0.9);
-            font-size: 0.72rem;
-            color: #e5e7eb;
-        }
-
-        body.light .badge {
-            background: rgba(239, 246, 255, 0.95);
-            color: #1f2937;
-        }
-
-        .badge-dot {
-            width: 0.4rem;
-            height: 0.4rem;
-            border-radius: 999px;
-            background: #22c55e;
-        }
-
-        .hero-title {
-            font-size: clamp(2.2rem, 3vw, 2.7rem);
-            line-height: 1.1;
-            color: #f9fafb;
-            margin-bottom: 0.6rem;
-        }
-
-        body.light .hero-title {
-            color: #0f172a;
-        }
-
-        .hero-motto {
-            font-size: 0.95rem;
-            color: #e5e7eb;
-            font-weight: 500;
-            margin-bottom: 0.6rem;
-        }
-
-        body.light .hero-motto {
-            color: #1f2937;
-        }
-
-        .hero-motto span {
-            color: #fbbf24;
-        }
-
-        .hero-text {
-            font-size: 0.95rem;
-            color: #d1d5db;
-            margin-bottom: 1.3rem;
-        }
-
-        body.light .hero-text {
-            color: #4b5563;
-        }
-
-        .hero-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            margin-bottom: 1.1rem;
-        }
-
-        /* Hero buttons */
-        .btn-primary,
-        .btn-outline {
-            border-radius: 999px;
-            padding: 0.55rem 1.4rem;
-            font-size: 0.88rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-            border: 1px solid transparent;
-            transition:
-                background var(--transition-fast),
-                color var(--transition-fast),
-                transform var(--transition-fast),
-                box-shadow var(--transition-fast),
-                border-color var(--transition-fast);
-        }
-
-        .btn-primary {
-            background: linear-gradient(to right, #4f46e5, #1e40af);
-            color: #f9fafb;
-            box-shadow: 0 14px 32px rgba(37, 99, 235, 0.7);
-            font-weight: 600;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 20px 42px rgba(37, 99, 235, 0.9);
-        }
-
-        .btn-outline {
-            background: rgba(15, 23, 42, 0.75);
-            border-color: rgba(148, 163, 184, 0.8);
-            color: #e5e7eb;
-        }
-
-        body.light .btn-outline {
-            background: #ffffff;
-            color: #1e3a8a;
-        }
-
-        .btn-outline:hover {
-            background: var(--primary-soft);
-            transform: translateY(-2px);
-            box-shadow: 0 16px 36px rgba(37, 99, 235, 0.4);
-            border-color: rgba(37, 99, 235, 0.7);
-        }
-
-        .hero-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.4rem;
-            font-size: 0.8rem;
-            color: #e5e7eb;
-        }
-
-        body.light .hero-meta {
-            color: #4b5563;
-        }
-
-        .hero-stat span:first-child {
-            display: block;
-            font-weight: 700;
-            font-size: 1.05rem;
-            color: #bfdbfe;
-        }
-
-        body.light .hero-stat span:first-child {
-            color: #1d4ed8;
-        }
-
-        .hero-right {
-            align-self: stretch;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .hero-panel {
-            width: 100%;
-            max-width: 290px;
-            background: radial-gradient(circle at top left, rgba(59,130,246,0.4), transparent 70%),
-                        var(--surface-soft);
-            border-radius: 1.4rem;
-            border: 1px solid rgba(191, 219, 254, 0.35);
-            padding: 1.1rem 1.1rem 1.2rem;
-            box-shadow: 0 20px 40px rgba(15,23,42,0.6);
-            display: grid;
-            gap: 0.65rem;
-        }
-
-        body.light .hero-panel {
-            background: #ffffff;
-            box-shadow: 0 18px 40px rgba(15,23,42,0.08);
-        }
-
-        .hero-panel-title {
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 0.2rem;
-        }
-
-        .hero-panel-sub {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-        }
-
-        .quick-links {
-            margin-top: 0.45rem;
-            display: grid;
-            gap: 0.4rem;
-        }
-
-        .quick-link {
-            font-size: 0.78rem;
-            padding: 0.4rem 0.55rem;
-            border-radius: 0.75rem;
-            border: 1px solid rgba(148,163,184,0.55);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            transition: background var(--transition-fast), transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
-        }
-
-        .quick-link span:first-child {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.45rem;
-        }
-
-        .quick-link-icon {
-            width: 22px;
-            height: 22px;
-            border-radius: 999px;
-            background: rgba(15, 23, 42, 0.8);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-        }
-
-        body.light .quick-link-icon {
-            background: #eff6ff;
-        }
-
-        .quick-link:hover {
-            background: rgba(15, 23, 42, 0.9);
-            border-color: rgba(191,219,254,0.9);
-            transform: translateY(-2px);
-            box-shadow: 0 14px 30px rgba(15,23,42,0.7);
-        }
-
-        body.light .quick-link:hover {
-            background: #eff6ff;
-            box-shadow: 0 12px 26px rgba(15,23,42,0.14);
-        }
-
-        .quick-link-arrow {
-            font-size: 0.95rem;
-        }
-
-        /* =========================================
-           GRIDS & CARDS
-        ==========================================*/
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 1.4rem;
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 1.4rem;
-        }
-
-        .info-card {
-            background: radial-gradient(circle at top left, rgba(30,64,175,0.26), transparent 60%),
-                        var(--surface-soft);
-            border-radius: var(--radius-lg);
-            padding: 1.2rem 1.2rem 1.1rem;
-            border: 1px solid rgba(148, 163, 184, 0.55);
-            box-shadow: 0 16px 32px rgba(15, 23, 42, 0.55);
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            position: relative;
-            overflow: hidden;
-            transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast), background 0.25s ease;
-        }
-
-        body.light .info-card {
-            background: #ffffff;
-            box-shadow: 0 16px 32px rgba(15, 23, 42, 0.08);
-        }
-
-        .info-card::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at top right, rgba(37, 99, 235, 0.16), transparent 55%);
-            opacity: 0;
-            transition: opacity 0.25s ease;
-            pointer-events: none;
-        }
-
-        .info-card:hover {
-            transform: translateY(-7px);
-            box-shadow: 0 20px 42px rgba(15, 23, 42, 0.8);
-            border-color: rgba(37, 99, 235, 0.7);
-        }
-
-        body.light .info-card:hover {
-            box-shadow: 0 20px 42px rgba(15, 23, 42, 0.18);
-        }
-
-        .info-card:hover::after {
-            opacity: 1;
-        }
-
-        .info-card h3 {
-            font-size: 1rem;
-            margin-bottom: 0.38rem;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-
-        .info-icon {
-            font-size: 1rem;
-        }
-
-        .chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            font-size: 0.68rem;
-            padding: 0.12rem 0.55rem;
-            border-radius: 999px;
-            border: 1px solid rgba(148, 163, 184, 0.7);
-            background: rgba(15, 23, 42, 0.7);
-            color: #e5e7eb;
-            margin-bottom: 0.45rem;
-        }
-
-        body.light .chip {
-            background: rgba(219, 234, 254, 0.9);
-            color: #1d4ed8;
-        }
-
-        .chip-dot {
-            width: 0.3rem;
-            height: 0.3rem;
-            border-radius: 999px;
-            background: #22c55e;
-        }
-
-        .card-btn {
-            margin-top: 0.7rem;
-            font-size: 0.8rem;
-            padding: 0.4rem 0.95rem;
-            border-radius: 999px;
-            border: 1px solid rgba(148, 163, 184, 0.7);
-            background: rgba(15, 23, 42, 0.8);
-            color: #e5e7eb;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-        }
-
-        body.light .card-btn {
-            background: #f9fafb;
-            color: var(--primary-subtle);
-        }
-
-        .card-btn:hover {
-            background: var(--primary);
-            border-color: rgba(219, 234, 254, 0.9);
-            transform: translateY(-2px);
-            box-shadow: 0 14px 30px rgba(37, 99, 235, 0.65);
-        }
-
-        body.light .card-btn:hover {
-            background: var(--primary-soft);
-            box-shadow: 0 14px 30px rgba(37, 99, 235, 0.25);
-        }
-
-        .card-extra {
-            margin-top: 0.55rem;
-            padding-top: 0.45rem;
-            border-top: 1px dashed rgba(148, 163, 184, 0.6);
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            display: none;
-        }
-
-        .card-extra.open {
-            display: block;
-        }
-
-        .card-extra ul {
-            padding-left: 1.1rem;
-        }
-
-        /* Result mini-form */
-        .result-form {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 0.6rem;
-            align-items: center;
-        }
-
-        .result-form input {
-            flex: 1;
-            padding: 0.4rem 0.7rem;
-            border-radius: 0.9rem;
-            border: 1px solid rgba(148,163,184,0.7);
-            background: rgba(15,23,42,0.7);
-            font-size: 0.8rem;
-            color: #e5e7eb;
-        }
-
-        body.light .result-form input {
-            background: #ffffff;
-            color: #0f172a;
-        }
-
-        .result-form input:focus {
-            outline: none;
-            border-color: rgba(37, 99, 235, 0.85);
-            box-shadow: 0 0 0 1px rgba(37,99,235,0.7);
-        }
-
-        .result-output {
-            margin-top: 0.6rem;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        .result-output strong {
-            color: var(--primary-subtle);
-        }
-
-        .result-output .error {
-            color: #fca5a5;
-        }
-
-        body.light .result-output .error {
-            color: #b91c1c;
-        }
-
-        /* =========================================
-           NOTICES
-        ==========================================*/
-        .notice-list {
-            list-style: none;
-            display: grid;
-            gap: 0.75rem;
-        }
-
-        .notice-item {
-            background: rgba(15, 23, 42, 0.85);
-            border-radius: 0.95rem;
-            padding: 0.75rem 0.9rem;
-            border: 1px solid rgba(148, 163, 184, 0.6);
-            font-size: 0.88rem;
-            color: var(--text-muted);
-            display: grid;
-            gap: 0.18rem;
-            transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast), background 0.25s ease;
-        }
-
-        body.light .notice-item {
-            background: #ffffff;
-        }
-
-        .notice-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 18px 36px rgba(15, 23, 42, 0.75);
-            border-color: rgba(37, 99, 235, 0.7);
-        }
-
-        body.light .notice-item:hover {
-            box-shadow: 0 18px 36px rgba(15, 23, 42, 0.18);
-        }
-
-        .notice-item span {
-            font-size: 0.72rem;
-            color: var(--primary-subtle);
-        }
-
-        /* =========================================
-           CONTACT
-        ==========================================*/
-        form {
-            max-width: 480px;
-            display: grid;
-            gap: 0.9rem;
-        }
-
-        label {
-            font-size: 0.83rem;
-            color: var(--text-muted);
-        }
-
-        input,
-        textarea {
-            width: 100%;
-            padding: 0.6rem 0.8rem;
-            border-radius: 0.9rem;
-            border: 1px solid rgba(148,163,184,0.8);
-            background: rgba(15,23,42,0.75);
-            color: #e5e7eb;
-            font-size: 0.9rem;
-            transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background 0.2s ease;
-        }
-
-        body.light input,
-        body.light textarea {
-            background: #ffffff;
-            color: #0f172a;
-        }
-
-        input:focus,
-        textarea:focus {
-            outline: none;
-            border-color: rgba(37, 99, 235, 0.85);
-            box-shadow: 0 0 0 1px rgba(37,99,235,0.7);
-        }
-
-        textarea {
-            min-height: 130px;
-            resize: vertical;
-        }
-
-        /* =========================================
-           FOOTER
-        ==========================================*/
-        footer {
-            border-top: 1px solid rgba(148, 163, 184, 0.35);
-            padding: 1.2rem 1.4rem 1.8rem;
-            font-size: 0.8rem;
-            text-align: center;
-            color: var(--text-muted);
-        }
-
-        /* =========================================
-           ANIMATIONS
-        ==========================================*/
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(18px) scale(0.98);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .fade-up {
-            opacity: 0;
-            animation: fadeUp 0.7s var(--transition-fast) forwards;
-        }
-
-        .delay-1 { animation-delay: 0.08s; }
-        .delay-2 { animation-delay: 0.16s; }
-        .delay-3 { animation-delay: 0.24s; }
-
-        /* =========================================
-           RESPONSIVE
-        ==========================================*/
-        @media (max-width: 980px) {
-            .grid-3 {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-        }
-
-        @media (max-width: 720px) {
-            .nav-shell {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 0.7rem 1rem 0.8rem;
-                gap: 0.7rem;
-            }
-
-            .nav-right {
-                width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 0.5rem;
-            }
-
-            /* show hamburger */
-            .nav-toggle {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            /* make nav dropdown */
-            #mainNav {
-                position: absolute;
-                top: 100%;
-                left: 1rem;
-                right: 1rem;
-                margin-top: 0.4rem;
-                z-index: 999;
-            }
-
-            #mainNav ul {
-                flex-direction: column;
-                align-items: flex-start;
-                width: 100%;
-                background: rgba(15, 23, 42, 0.98);
-                padding: 0.5rem;
-                border-radius: 1rem;
-                border: 1px solid rgba(148, 163, 184, 0.85);
-                box-shadow: 0 18px 40px rgba(15, 23, 42, 0.8);
-                display: none; /* hidden by default */
-            }
-
-            body.light #mainNav ul {
-                background: #ffffff;
-                box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
-            }
-
-            #mainNav li {
-                width: 100%;
-            }
-
-            #mainNav a {
-                width: 100%;
-                padding: 0.6rem 0.8rem;
-            }
-
-            /* when nav-open class on body, show menu */
-            body.nav-open #mainNav ul {
-                display: flex;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .grid-3,
-            .grid-2 {
-                grid-template-columns: 1fr;
-            }
-            .hero-overlay {
-                padding: 1.8rem 1.4rem 1.9rem;
-            }
-            .shell {
-                padding-inline: 1rem;
-            }
-            .card-section {
-                padding-inline: 1.35rem;
-            }
-        }
-		
-		@media (max-width: 720px) {
-    header {
-        position: relative;   /* instead of sticky */
-		z-index:200;
+  <meta charset="UTF-8" />
+  <title>SPU Orbital Console – Sardar Patel University</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    /* =========================================
+       DESIGN TOKENS – NEON DARK (ALIEN DEFAULT)
+    ========================================== */
+    :root {
+      --bg: #020617;
+      --bg-alt: #020617;
+      --grid-line: rgba(148, 163, 184, 0.12);
+
+      --surface: rgba(15, 23, 42, 0.96);
+      --surface-glass: rgba(15, 23, 42, 0.85);
+
+      --primary: #38bdf8;  /* neon cyan */
+      --primary-strong: #0ea5e9;
+      --accent: #a855f7;   /* violet */
+      --accent-warm: #f97316;
+
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+
+      --border-soft: rgba(148, 163, 184, 0.4);
+      --shadow-soft: 0 25px 60px rgba(0, 0, 0, 0.85);
+
+      --radius-xl: 1.8rem;
+      --radius-lg: 1.2rem;
+      --transition-fast: 0.2s ease-out;
+      --transition-med: 0.35s ease-out;
     }
-}
 
-    </style>
+    /* Light / “day orbit” mode */
+    body.light {
+      --bg: #f3f4f9;
+      --bg-alt: #e5edff;
+      --grid-line: rgba(148, 163, 184, 0.22);
+
+      --surface: #ffffff;
+      --surface-glass: rgba(255, 255, 255, 0.95);
+
+      --primary: #2563eb;
+      --primary-strong: #1d4ed8;
+      --accent: #a855f7;
+      --accent-warm: #ea580c;
+
+      --text-main: #020617;
+      --text-muted: #6b7280;
+
+      --border-soft: #e5e7eb;
+      --shadow-soft: 0 22px 40px rgba(15, 23, 42, 0.15);
+    }
+
+    /* =========================================
+       GLOBAL BASE
+    ========================================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(56, 189, 248, 0.22), transparent 60%),
+        radial-gradient(circle at bottom left, rgba(168, 85, 247, 0.22), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(249, 115, 22, 0.2), transparent 55%),
+        linear-gradient(135deg, var(--bg-alt), var(--bg));
+      color: var(--text-main);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      transition: background 0.4s var(--transition-med), color 0.4s var(--transition-med);
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    /* =========================================
+       BACKGROUND GRID (ALIEN HUD)
+    ========================================== */
+    .grid-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.45;
+      mix-blend-mode: soft-light;
+      z-index: 0;
+    }
+
+    /* =========================================
+       LAYOUT FRAME – LIKE A CONTROL ROOM
+    ========================================== */
+    .frame {
+      position: relative;
+      z-index: 1;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 1.4rem 1rem 2.4rem;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 1.4rem;
+    }
+
+    @media (max-width: 768px) {
+      .frame {
+        grid-template-columns: 1fr;
+        padding-top: 1rem;
+      }
+    }
+
+    /* =========================================
+       LEFT DOCK – ALIEN NAVIGATION
+    ========================================== */
+    .dock {
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+      align-items: center;
+      padding: 1.2rem 0.6rem;
+      border-radius: 1.6rem;
+      background: linear-gradient(
+          145deg,
+          rgba(15, 23, 42, 0.96),
+          rgba(15, 23, 42, 0.9)
+        );
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      box-shadow: var(--shadow-soft);
+      position: sticky;
+      top: 1rem;
+    }
+
+    body.light .dock {
+      background: linear-gradient(145deg, #ffffff, #f3f4ff);
+      box-shadow: var(--shadow-soft);
+    }
+
+    @media (max-width: 768px) {
+      .dock {
+        position: static;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 0.7rem 0.7rem;
+      }
+    }
+
+    .brand-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.55rem;
+    }
+
+    .brand-logo {
+      width: 52px;
+      height: 52px;
+      border-radius: 999px;
+      object-fit: cover;
+      box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.9), 0 12px 35px rgba(0, 0, 0, 0.9);
+    }
+
+    body.light .brand-logo {
+      box-shadow: 0 0 0 2px #e5e7eb, 0 8px 26px rgba(15, 23, 42, 0.15);
+    }
+
+    .brand-caption {
+      text-align: center;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+    }
+
+    .brand-caption span {
+      display: block;
+      font-weight: 700;
+      color: var(--primary-strong);
+    }
+
+    .dock-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    @media (max-width: 768px) {
+      .dock-nav {
+        flex-direction: row;
+      }
+    }
+
+    .dock-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: radial-gradient(circle at 30% 10%, rgba(148, 163, 248, 0.4), transparent 60%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: #e5e7eb;
+      position: relative;
+      transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        border-color var(--transition-fast),
+        background var(--transition-fast);
+    }
+
+    body.light .dock-btn {
+      color: #020617;
+      background: radial-gradient(circle at 25% 0%, rgba(191, 219, 254, 0.9), transparent 60%);
+    }
+
+    .dock-btn:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 16px 30px rgba(15, 23, 42, 0.8);
+      border-color: var(--primary-strong);
+    }
+
+    .dock-btn.active {
+      border-color: var(--primary-strong);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.8), 0 18px 40px rgba(8, 47, 73, 0.9);
+      background: radial-gradient(circle at 30% 10%, rgba(56, 189, 248, 0.65), transparent 60%);
+    }
+
+    body.light .dock-btn.active {
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.7), 0 16px 34px rgba(15, 23, 42, 0.18);
+    }
+
+    .dock-tooltip {
+      position: absolute;
+      left: 52px;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.96);
+      color: #e5e7eb;
+      font-size: 0.7rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(-4px);
+      transition: opacity 0.18s ease-out, transform 0.18s ease-out;
+    }
+
+    body.light .dock-tooltip {
+      background: #0f172a;
+    }
+
+    .dock-btn:hover .dock-tooltip {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    @media (max-width: 768px) {
+      .dock-tooltip {
+        display: none;
+      }
+    }
+
+    .dock-bottom {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      .dock-bottom {
+        display: none;
+      }
+    }
+
+    .tiny-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.9);
+    }
+
+    .theme-toggle {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      background: transparent;
+      color: var(--text-muted);
+      padding: 0.2rem 0.55rem;
+      cursor: pointer;
+      font-size: 0.7rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition:
+        background var(--transition-fast),
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        border-color var(--transition-fast);
+    }
+
+    .theme-toggle:hover {
+      background: rgba(15, 23, 42, 0.8);
+      color: #e5e7eb;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.7);
+      transform: translateY(-1px);
+      border-color: rgba(56, 189, 248, 0.9);
+    }
+
+    body.light .theme-toggle:hover {
+      background: #ffffff;
+      color: #020617;
+    }
+
+    /* =========================================
+       RIGHT CONSOLE – MAIN WINDOW
+    ========================================== */
+    .console {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      backdrop-filter: blur(16px);
+    }
+
+    body.light .status-bar {
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .status-left {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+    }
+
+    .status-chip {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      padding: 0.16rem 0.6rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.72rem;
+    }
+
+    .status-chip span:first-child {
+      font-size: 0.8rem;
+    }
+
+    .status-right {
+      display: flex;
+      gap: 0.8rem;
+      align-items: center;
+      font-size: 0.75rem;
+    }
+
+    .time {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .window {
+      flex: 1;
+      min-height: 420px;
+      border-radius: var(--radius-xl);
+      background: var(--surface-glass);
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .window-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1.1rem;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.2), transparent 60%);
+      font-size: 0.8rem;
+    }
+
+    .window-title {
+      font-size: 0.82rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .window-dots {
+      display: flex;
+      gap: 0.3rem;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+    }
+
+    .dot.red { background: #f97373; }
+    .dot.yellow { background: #fde68a; }
+    .dot.green { background: #4ade80; }
+
+    .window-body {
+      padding: 1.4rem 1.6rem 1.7rem;
+      overflow: auto;
+      position: relative;
+    }
+
+    /* =========================================
+       SECTION CONTENT STYLES
+    ========================================== */
+    .section-heading {
+      font-size: 1.6rem;
+      margin-bottom: 0.3rem;
+      color: var(--primary-strong);
+    }
+
+    .section-subheading {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    @media (max-width: 900px) {
+      .grid-3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .grid-2,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      padding: 0.9rem 1rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      background: radial-gradient(circle at top left, rgba(56,189,248,0.22), transparent 60%);
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      position: relative;
+      overflow: hidden;
+      transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        border-color var(--transition-fast),
+        background 0.25s ease;
+    }
+
+    body.light .card {
+      background: #ffffff;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 38px rgba(15, 23, 42, 0.85);
+      border-color: rgba(56, 189, 248, 0.9);
+    }
+
+    body.light .card:hover {
+      box-shadow: 0 18px 36px rgba(15, 23, 42, 0.18);
+    }
+
+    .card-title {
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .card-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.68rem;
+      padding: 0.14rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      margin-bottom: 0.45rem;
+      color: var(--primary-strong);
+    }
+
+    .label-dot {
+      width: 0.32rem;
+      height: 0.32rem;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.6rem;
+      font-size: 0.76rem;
+    }
+
+    .pill {
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.7);
+    }
+
+    body.light .pill {
+      background: #f3f4ff;
+    }
+
+    /* HOME / OVERVIEW WIDGETS */
+    .overview-row {
+      display: grid;
+      grid-template-columns: 2.2fr 1.4fr;
+      gap: 1.1rem;
+      margin-bottom: 1.2rem;
+    }
+
+    @media (max-width: 900px) {
+      .overview-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hero-text {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 0.9rem;
+    }
+
+    .big-number {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary-strong);
+    }
+
+    .orbit-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      padding: 0.22rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      margin-bottom: 0.6rem;
+      color: var(--accent-warm);
+    }
+
+    .orbit-badge span:first-child {
+      font-size: 0.9rem;
+    }
+
+    .mini-header {
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .timeline {
+      border-left: 1px dashed rgba(148,163,184,0.7);
+      padding-left: 0.7rem;
+      margin-top: 0.4rem;
+      font-size: 0.8rem;
+      display: grid;
+      gap: 0.3rem;
+    }
+
+    .timeline-item span {
+      font-weight: 600;
+      color: var(--primary-strong);
+    }
+
+    /* RESULT DEMO */
+    .result-form {
+      display: flex;
+      gap: 0.45rem;
+      align-items: center;
+      margin-top: 0.5rem;
+    }
+
+    .result-form input {
+      flex: 1;
+      padding: 0.4rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.8);
+      color: var(--text-main);
+      font-size: 0.8rem;
+    }
+
+    body.light .result-form input {
+      background: #ffffff;
+    }
+
+    .result-form input:focus {
+      outline: none;
+      border-color: rgba(56, 189, 248, 0.9);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.8);
+    }
+
+    .btn-ghost {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      background: transparent;
+      color: var(--primary-strong);
+      padding: 0.32rem 0.9rem;
+      font-size: 0.78rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      transition:
+        background var(--transition-fast),
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        border-color var(--transition-fast);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(15, 23, 42, 0.85);
+      color: #e5e7eb;
+      border-color: rgba(56, 189, 248, 0.9);
+      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.7);
+      transform: translateY(-1px);
+    }
+
+    body.light .btn-ghost:hover {
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+
+    .result-output {
+      margin-top: 0.45rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .result-output strong {
+      color: var(--primary-strong);
+    }
+
+    .error {
+      color: #fb7185;
+    }
+
+    /* CONTACT FORM */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 1.1rem;
+    }
+
+    @media (max-width: 900px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    form {
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 0.55rem 0.75rem;
+      border-radius: 0.9rem;
+      border: 1px solid rgba(148,163,184,0.8);
+      background: rgba(15,23,42,0.9);
+      color: var(--text-main);
+      font-size: 0.85rem;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background 0.2s ease;
+      resize: vertical;
+    }
+
+    body.light input,
+    body.light textarea {
+      background: #ffffff;
+      color: #020617;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: rgba(56, 189, 248, 0.9);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.8);
+    }
+
+    textarea {
+      min-height: 120px;
+    }
+
+    .contact-meta {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .contact-meta strong {
+      color: var(--primary-strong);
+    }
+
+    .small-note {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+    }
+
+    /* ANIMATIONS / TRANSITIONS */
+    .section {
+      display: none;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.25s ease-out, transform 0.25s ease-out;
+    }
+
+    .section.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
 </head>
 <body>
+  <div class="grid-overlay"></div>
 
-<header>
-    <div class="nav-shell">
-        <div class="brand">
-            <!-- Use your own logo file here -->
-            <img src="spu-logo.jpeg" alt="Sardar Patel University Logo" class="brand-logo" />
-            <div class="brand-text">
-                <div class="brand-title">Sardar Patel University</div>
-                <div class="brand-subtitle">Vallabh Vidyanagar · Gujarat · India</div>
+  <div class="frame">
+    <!-- LEFT “ALIEN” DOCK -->
+    <aside class="dock">
+      <div class="brand-block">
+        <!-- Put your actual SPU logo file as spu-logo.png -->
+        <img src="spu-logo.jpeg" alt="SPU Logo" class="brand-logo" />
+        <div class="brand-caption">
+          Sardar Patel University
+          <span>Orbital Console</span>
+        </div>
+      </div>
+
+      <div class="dock-nav">
+        <button class="dock-btn active" data-target="home">
+          🪐
+          <span class="dock-tooltip">Home / Overview</span>
+        </button>
+        <button class="dock-btn" data-target="academics">
+          📚
+          <span class="dock-tooltip">Academics Galaxy</span>
+        </button>
+        <button class="dock-btn" data-target="student">
+          🎓
+          <span class="dock-tooltip">Student Orbit</span>
+        </button>
+        <button class="dock-btn" data-target="notices">
+          📡
+          <span class="dock-tooltip">Broadcasts / Notices</span>
+        </button>
+        <button class="dock-btn" data-target="contact">
+          📨
+          <span class="dock-tooltip">Contact Console</span>
+        </button>
+      </div>
+
+      <div class="dock-bottom">
+        <div class="tiny-dot"></div>
+        <div>System: <strong>Online</strong></div>
+        <button class="theme-toggle" id="themeToggle">
+          <span id="themeIcon">☀</span>
+          <span id="themeLabel">Light mode</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- RIGHT CONSOLE -->
+    <main class="console">
+      <div class="status-bar">
+        <div class="status-left">
+          <div class="status-chip">
+            <span>🛰</span>
+            <span>Mode: SPU Orbital Interface</span>
+          </div>
+          <div class="status-chip">
+            <span>🎯</span>
+            <span>Focus: Student-first navigation</span>
+          </div>
+        </div>
+        <div class="status-right">
+          <span class="time" id="clock">--:--:--</span>
+          <span>India Standard Time</span>
+        </div>
+      </div>
+
+      <section class="window">
+        <div class="window-header">
+          <div class="window-title">
+            <span id="windowTitle">Home · Overview</span>
+          </div>
+          <div class="window-dots">
+            <div class="dot red"></div>
+            <div class="dot yellow"></div>
+            <div class="dot green"></div>
+          </div>
+        </div>
+
+        <div class="window-body">
+          <!-- HOME / OVERVIEW -->
+          <div class="section active" id="section-home">
+            <div class="section-heading">Welcome to the SPU Orbital Console</div>
+            <div class="section-subheading">
+              A science-fiction inspired interface that reimagines the Sardar Patel University homepage
+              as a calm, futuristic control room instead of a traditional website.
             </div>
-        </div>
 
-        <div class="nav-right">
-            <span class="pill-label">Digital Campus · Prototype</span>
-
-            <!-- HAMBURGER BUTTON (MOBILE) -->
-            <button class="nav-toggle" id="navToggle" type="button">☰</button>
-
-            <!-- NAV WITH ID FOR JS -->
-            <nav id="mainNav">
-                <ul>
-                    <li><a href="#hero">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#academics">Academics</a></li>
-                    <li><a href="#student-corner">Student Corner</a></li>
-                    <li><a href="#notices">Notices</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-
-            <button class="toggle-theme" id="themeToggle" type="button">
-                <span id="themeIcon">☀</span>
-                <span id="themeLabel">Light</span>
-            </button>
-        </div>
-    </div>
-</header>
-
-<!-- HERO -->
-<section id="hero">
-    <div class="hero-banner fade-up">
-        <div class="hero-overlay">
-            <div class="hero-left">
-                <div class="badge-row">
-                    <div class="badge">
-                        <span class="badge-dot"></span>
-                        <span>Prompt2Create: Website Design Competition</span>
-                    </div>
-                    <div class="badge">
-                        <span>⭐</span>
-                        <span>Premium UI · Frontend Prototype</span>
-                    </div>
+            <div class="overview-row">
+              <div>
+                <div class="orbit-badge">
+                  <span>◎</span>
+                  <span>Education Town · Vallabh Vidyanagar · Gujarat</span>
                 </div>
-
-                <h1 class="hero-title">
-                    A Calm, Premium Digital Experience<br />
-                    for Sardar Patel University
-                </h1>
-                <p class="hero-motto">
-                    “Character and Conduct are the Fruits of Education” –
-                    <span>centred in every interaction.</span>
-                </p>
                 <p class="hero-text">
-                    This concept brings together a focused home page, student-first navigation,
-                    sample notices and a result demo – designed to feel like a real, modern
-                    university portal.
+                  Imagine every SPU resource as a “planet” in a small galaxy. This console lets students
+                  jump between orbits — Academics, Student Corner, Notices and Support — without feeling lost.
+                  The goal is not only to look futuristic, but to feel <strong>calm and focused</strong>.
                 </p>
 
-                <div class="hero-actions">
-                    <button class="btn-primary" onclick="scrollToSection('student-corner')">
-                        🎓 Student Corner
-                    </button>
-                    <button class="btn-outline" onclick="openOfficialSite()">
-                        ↗ Visit Official SPU Site
-                    </button>
+                <div class="grid grid-3" style="margin-top:0.8rem;">
+                  <div class="card">
+                    <div class="mini-header">Heritage</div>
+                    <div class="big-number">1955</div>
+                    <p style="font-size:0.8rem;">
+                      Established legacy of value-based higher education with multiple faculties and programmes.
+                    </p>
+                  </div>
+                  <div class="card">
+                    <div class="mini-header">Interface Goal</div>
+                    <p>
+                      Reduce clutter and present a <strong>single console</strong> instead of separate pages.
+                      Every section opens within the same clean window.
+                    </p>
+                  </div>
+                  <div class="card">
+                    <div class="mini-header">Experience</div>
+                    <p>
+                      Alien-tech inspiration, but grounded in real journeys: admissions, exams, results,
+                      syllabi, library, and support.
+                    </p>
+                  </div>
                 </div>
+              </div>
 
-                <div class="hero-meta">
-                    <div class="hero-stat">
-                        <span>1955</span>
-                        Established legacy of higher education
+              <div>
+                <div class="card">
+                  <div class="mini-header">Session log</div>
+                  <div class="timeline">
+                    <div class="timeline-item">
+                      <span>00:00</span> · User docks at SPU Orbital Console.
                     </div>
-                    <div class="hero-stat">
-                        <span>NAAC</span>
-                        Accredited multi-faculty university
+                    <div class="timeline-item">
+                      <span>00:10</span> · Scans Home overview & university snapshot.
                     </div>
-                    <div class="hero-stat">
-                        <span>Digital-first</span>
-                        Ready for student services online
+                    <div class="timeline-item">
+                      <span>00:30</span> · Jumps to Student Orbit for results / exams.
                     </div>
+                    <div class="timeline-item">
+                      <span>01:00</span> · Checks latest broadcasts in Notices sector.
+                    </div>
+                  </div>
+                  <p class="small-note">
+                    This is just a concept log. In a real system, this could become an
+                    actual activity timeline for logged-in students.
+                  </p>
                 </div>
+              </div>
             </div>
 
-            <div class="hero-right">
-                <div class="hero-panel">
-                    <div>
-                        <div class="hero-panel-title">Quick Access</div>
-                        <div class="hero-panel-sub">Most-used student actions in one place.</div>
-                    </div>
-
-                    <div class="quick-links">
-                        <div class="quick-link" onclick="scrollToSection('student-corner')">
-                            <span>
-                                <span class="quick-link-icon">📝</span>
-                                <span>Admissions & Eligibility</span>
-                            </span>
-                            <span class="quick-link-arrow">→</span>
-                        </div>
-                        <div class="quick-link" onclick="scrollToSection('student-corner')">
-                            <span>
-                                <span class="quick-link-icon">📅</span>
-                                <span>Exam Timetable & Hall Ticket Info</span>
-                            </span>
-                            <span class="quick-link-arrow">→</span>
-                        </div>
-                        <div class="quick-link" onclick="scrollToSection('student-corner')">
-                            <span>
-                                <span class="quick-link-icon">📊</span>
-                                <span>Result Lookup (Demo)</span>
-                            </span>
-                            <span class="quick-link-arrow">→</span>
-                        </div>
-                        <div class="quick-link" onclick="scrollToSection('contact')">
-                            <span>
-                                <span class="quick-link-icon">📨</span>
-                                <span>Contact / Helpdesk</span>
-                            </span>
-                            <span class="quick-link-arrow">→</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="card" style="margin-top:1rem;">
+              <div class="card-title">What makes this different from a normal SPU homepage?</div>
+              <p style="font-size:0.9rem;">
+                Instead of many separate, scroll-heavy pages, the entire experience is compressed into a
+                single “console window”. The left dock behaves like an OS launcher, and the main area
+                switches contexts with smooth transitions — similar to a futuristic operating system rather
+                than a classic website.
+              </p>
+              <div class="pill-row">
+                <div class="pill">Single-window UI</div>
+                <div class="pill">OS-like dock navigation</div>
+                <div class="pill">Neon HUD grid background</div>
+                <div class="pill">Alien-inspired, but still readable</div>
+              </div>
             </div>
-        </div>
-    </div>
-</section>
+          </div>
 
-<main class="shell">
-
-    <!-- ABOUT -->
-    <section id="about">
-        <div class="card-section fade-up delay-1">
-            <div class="card-section-inner">
-                <div class="section-header">
-                    <div>
-                        <h2 class="section-title">About</h2>
-                        <p class="section-subtitle">
-                            A focused snapshot of Sardar Patel University and the design decisions
-                            behind this competition prototype.
-                        </p>
-                    </div>
-                    <div class="section-tag">Section · University Overview</div>
-                </div>
-
-                <div class="grid-3">
-                    <article class="info-card">
-                        <div class="chip">
-                            <span class="chip-dot"></span>
-                            Legacy
-                        </div>
-                        <h3><span class="info-icon">🏛</span> Established Heritage</h3>
-                        <p>
-                            Sardar Patel University has nurtured generations of students through
-                            value-based higher education, blending tradition with contemporary standards
-                            across diverse disciplines.
-                        </p>
-                    </article>
-
-                    <article class="info-card">
-                        <div class="chip">
-                            <span class="chip-dot"></span>
-                            Campus
-                        </div>
-                        <h3><span class="info-icon">🌳</span> Vallabh Vidyanagar</h3>
-                        <p>
-                            Located within a dedicated education town, the campus environment is
-                            designed for learning, research and community life, with institutions
-                            and facilities within walkable distance.
-                        </p>
-                    </article>
-
-                    <article class="info-card">
-                        <div class="chip">
-                            <span class="chip-dot"></span>
-                            Vision
-                        </div>
-                        <h3><span class="info-icon">💻</span> Digital-Ready Experience</h3>
-                        <p>
-                            This interface is built as a step towards a complete digital campus:
-                            clear navigation, responsive layout and a structure ready to plug into
-                            real university systems.
-                        </p>
-                    </article>
-                </div>
+          <!-- ACADEMICS -->
+          <div class="section" id="section-academics">
+            <div class="section-heading">Academics Galaxy</div>
+            <div class="section-subheading">
+              Faculties, programmes and resources arranged like a small academic galaxy – each “planet”
+              representing a core part of teaching and learning.
             </div>
-        </div>
-    </section>
 
-    <!-- ACADEMICS -->
-    <section id="academics">
-        <div class="card-section fade-up delay-2">
-            <div class="card-section-inner">
-                <div class="section-header">
-                    <div>
-                        <h2 class="section-title">Academics</h2>
-                        <p class="section-subtitle">
-                            Academic information arranged to help prospective students, parents and
-                            faculty understand the structure of programmes at a glance.
-                        </p>
-                    </div>
-                    <div class="section-tag">Section · Academic Snapshot</div>
+            <div class="grid grid-3">
+              <div class="card">
+                <div class="card-label">
+                  <span class="label-dot"></span>
+                  Faculties
                 </div>
-
-                <div class="grid-3">
-                    <article class="info-card">
-                        <div class="chip">
-                            <span class="chip-dot"></span>
-                            Faculties
-                        </div>
-                        <h3><span class="info-icon">🏫</span> Faculties & Schools</h3>
-                        <p>
-                            A clear view of Arts, Science, Commerce, Management, Education and other
-                            faculties. The design allows future filters by programme, department and
-                            specialization.
-                        </p>
-                    </article>
-
-                    <article class="info-card">
-                        <div class="chip">
-                            <span class="chip-dot"></span>
-                            Programs
-                        </div>
-                        <h3><span class="info-icon">🎓</span> UG · PG · Research</h3>
-                        <p>
-                            Undergraduate, postgraduate and doctoral programmes can be organised here
-                            in a structured way so applicants can explore pathways without being
-                            overwhelmed by links.
-                        </p>
-                    </article>
-
-                    <article class="info-card">
-                        <div class="chip">
-                            <span class="chip-dot"></span>
-                            Resources
-                        </div>
-                        <h3><span class="info-icon">📚</span> Academic Resources</h3>
-                        <p>
-                            Syllabi, regulations, academic calendars and important circulars are grouped
-                            into one central location instead of being spread across multiple pages.
-                        </p>
-                    </article>
+                <div class="card-title">Core Orbits</div>
+                <p>
+                  Arts · Science · Commerce · Management · Education and more. In a live system, each tile
+                  could open a deep-dive window or dedicated route.
+                </p>
+                <div class="pill-row">
+                  <div class="pill">Faculty of Arts</div>
+                  <div class="pill">Faculty of Science</div>
+                  <div class="pill">Faculty of Commerce</div>
                 </div>
+              </div>
+
+              <div class="card">
+                <div class="card-label">
+                  <span class="label-dot"></span>
+                  Programmes
+                </div>
+                <div class="card-title">UG · PG · Research</div>
+                <p>
+                  Programmes visualised like layered rings: outer ring for UG, middle for PG,
+                  inner core for M.Phil / Ph.D., making it easier to understand progression.
+                </p>
+                <div class="pill-row">
+                  <div class="pill">UG programmes</div>
+                  <div class="pill">PG programmes</div>
+                  <div class="pill">Doctoral research</div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-label">
+                  <span class="label-dot"></span>
+                  Resources
+                </div>
+                <div class="card-title">Syllabi & Regulations</div>
+                <p>
+                  A focused area for curriculum PDFs, academic calendars and regulations.
+                  No hunting through long menus – everything is reachable from this console.
+                </p>
+                <div class="pill-row">
+                  <div class="pill">Academic calendar</div>
+                  <div class="pill">Syllabi PDFs</div>
+                  <div class="pill">Regulations</div>
+                </div>
+              </div>
             </div>
-        </div>
-    </section>
+          </div>
 
-    <!-- STUDENT CORNER -->
-    <section id="student-corner">
-        <div class="card-section fade-up delay-2">
-            <div class="card-section-inner">
-                <div class="section-header">
-                    <div>
-                        <h2 class="section-title">Student Corner</h2>
-                        <p class="section-subtitle">
-                            A single dashboard-style area for high-frequency tasks: admissions,
-                            examinations, results, syllabi, library and support.
-                        </p>
-                    </div>
-                    <div class="section-tag">Section · Student Actions</div>
-                </div>
-
-                <div class="grid-3">
-                    <!-- Admissions -->
-                    <article class="info-card">
-                        <div class="chip">
-                            <span class="chip-dot"></span>
-                            Admissions
-                        </div>
-                        <h3><span class="info-icon">📝</span> Online Admissions</h3>
-                        <p>
-                            Central access to admission notifications, eligibility criteria and
-                            key dates. In a full system, this card would link directly to
-                            the online application portal.
-                        </p>
-                        <button class="card-btn" type="button" onclick="toggleExtra('admissions')">
-                            View details <span>⌄</span>
-                        </button>
-                        <div class="card-extra" id="extra-admissions">
-                            <ul>
-                                <li>Separate flows for UG / PG / PhD admissions.</li>
-                                <li>Highlight last dates and important steps clearly.</li>
-                                <li>Integrate secure online form and document upload.</li>
-                            </ul>
-                        </div>
-                    </article>
-
-                    <!-- Exams -->
-                    <article class="info-card">
-                        <div class="chip">
-                            <span class="chip-dot"></span>
-                            Examinations
-                        </div>
-                        <h3><span class="info-icon">📅</span> Examination Cell</h3>
-                        <p>
-                            One consolidated place for timetables, guidelines and hall-ticket
-                            instructions instead of multiple pages split by programme.
-                        </p>
-                        <button class="card-btn" type="button" onclick="toggleExtra('exams')">
-                            Open exam info <span>⌄</span>
-                        </button>
-                        <div class="card-extra" id="extra-exams">
-                            <ul>
-                                <li>Download timetables semester-wise.</li>
-                                <li>Display rules, permitted items and reporting times.</li>
-                                <li>Future feature: room-wise seating plans.</li>
-                            </ul>
-                        </div>
-                    </article>
-
-                    <!-- Results (front-end demo only) -->
-                    <article class="info-card">
-                        <div class="chip">
-                            <span class="chip-dot"></span>
-                            Results
-                        </div>
-                        <h3><span class="info-icon">📊</span> Result Lookup (Demo)</h3>
-                        <p>
-                            Enter a seat number and see a sample result generated on the front-end.
-                            Try <strong>SPU001</strong> or <strong>SPU002</strong> for a demo.
-                        </p>
-
-                        <div class="result-form">
-                            <input id="resultSeat" type="text" placeholder="e.g. SPU001" />
-                            <button class="card-btn" type="button" onclick="lookupResult()">
-                                View result <span>▶</span>
-                            </button>
-                        </div>
-                        <div id="resultOutput" class="result-output"></div>
-                    </article>
-
-                    <!-- Syllabi -->
-                    <article class="info-card">
-                        <div class="chip">
-                            <span class="chip-dot"></span>
-                            Curriculum
-                        </div>
-                        <h3><span class="info-icon">📖</span> Syllabi & Curriculum</h3>
-                        <p>
-                            A structured index of syllabi PDFs, organised by programme, semester and
-                            course code for quick planning and revision.
-                        </p>
-                        <button class="card-btn" type="button" onclick="toggleExtra('syllabi')">
-                            View syllabi list <span>⌄</span>
-                        </button>
-                        <div class="card-extra" id="extra-syllabi">
-                            <ul>
-                                <li>Provide semester-wise downloadable syllabi PDFs.</li>
-                                <li>Highlight newly revised courses or regulations.</li>
-                                <li>Allow basic search by course title/code.</li>
-                            </ul>
-                        </div>
-                    </article>
-
-                    <!-- Library -->
-                    <article class="info-card">
-                        <div class="chip">
-                            <span class="chip-dot"></span>
-                            Library
-                        </div>
-                        <h3><span class="info-icon">📚</span> Library & E-Resources</h3>
-                        <p>
-                            Direct gateway to the university library, e-journals and digital
-                            collections to support coursework and research.
-                        </p>
-                        <button class="card-btn" type="button" onclick="toggleExtra('library')">
-                            Browse resources <span>⌄</span>
-                        </button>
-                        <div class="card-extra" id="extra-library">
-                            <ul>
-                                <li>Logins for digital library and remote access.</li>
-                                <li>Highlight major databases and journals.</li>
-                                <li>Show opening hours and librarian contact details.</li>
-                            </ul>
-                        </div>
-                    </article>
-
-                    <!-- Helpdesk -->
-                    <article class="info-card">
-                        <div class="chip">
-                            <span class="chip-dot"></span>
-                            Support
-                        </div>
-                        <h3><span class="info-icon">🧩</span> Student Helpdesk</h3>
-                        <p>
-                            A single starting point for scholarships, fee queries and grievance
-                            redressal, guiding students to the right official contact.
-                        </p>
-                        <button class="card-btn" type="button" onclick="toggleExtra('helpdesk')">
-                            Contact support <span>⌄</span>
-                        </button>
-                        <div class="card-extra" id="extra-helpdesk">
-                            <ul>
-                                <li>List email IDs and phone numbers of key cells.</li>
-                                <li>Future scope: online ticket / complaint submission.</li>
-                                <li>Track status of requests through a login system.</li>
-                            </ul>
-                        </div>
-                    </article>
-                </div>
+          <!-- STUDENT ORBIT -->
+          <div class="section" id="section-student">
+            <div class="section-heading">Student Orbit</div>
+            <div class="section-subheading">
+              All the high-frequency tasks students care about the most – admissions, examinations,
+              results, syllabi, library and helpdesk – in one compact orbit.
             </div>
-        </div>
-    </section>
 
-    <!-- NOTICES -->
-    <section id="notices">
-        <div class="card-section fade-up delay-3">
-            <div class="card-section-inner">
-                <div class="section-header">
-                    <div>
-                        <h2 class="section-title">Notices</h2>
-                        <p class="section-subtitle">
-                            Sample announcements and campus news to illustrate how live data
-                            can be presented in a clean, premium layout.
-                        </p>
-                    </div>
-                    <div class="section-tag">Section · Demo Data</div>
+            <div class="grid grid-3">
+              <div class="card">
+                <div class="card-label">
+                  <span class="label-dot"></span>
+                  Admissions
                 </div>
-
-                <div class="grid-2">
-                    <div>
-                        <h3 style="font-size:1.02rem;margin-bottom:0.6rem;">Important Announcements</h3>
-                        <ul id="announcementList" class="notice-list">
-                            <!-- Filled by JS -->
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h3 style="font-size:1.02rem;margin-bottom:0.6rem;">News & Campus Highlights</h3>
-                        <ul id="newsList" class="notice-list">
-                            <!-- Filled by JS -->
-                        </ul>
-                    </div>
+                <div class="card-title">Online Admissions Hub</div>
+                <p>
+                  A single entry point for UG / PG / PhD admissions, with eligibility, dates
+                  and links to the official admission portal.
+                </p>
+                <div class="pill-row">
+                  <div class="pill">Notifications</div>
+                  <div class="pill">Eligibility</div>
+                  <div class="pill">Important dates</div>
                 </div>
+              </div>
+
+              <div class="card">
+                <div class="card-label">
+                  <span class="label-dot"></span>
+                  Examinations
+                </div>
+                <div class="card-title">Examination Cell</div>
+                <p>
+                  Timetables, rules, hall-ticket notes and reporting times, designed so students can
+                  understand everything important at a glance.
+                </p>
+                <div class="pill-row">
+                  <div class="pill">Schedules</div>
+                  <div class="pill">Hall-ticket info</div>
+                  <div class="pill">Rules</div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-label">
+                  <span class="label-dot"></span>
+                  Results (Demo)
+                </div>
+                <div class="card-title">Result Lookup – Front-end Demo</div>
+                <p>
+                  Enter a seat number to see a sample result. In a live backend, this would call a
+                  real result API and show official marks.
+                </p>
+
+                <div class="result-form">
+                  <input id="resultSeat" type="text" placeholder="Try SPU001 or SPU002" />
+                  <button class="btn-ghost" type="button" onclick="lookupResult()">
+                    <span>View</span> <span>▶</span>
+                  </button>
+                </div>
+                <div id="resultOutput" class="result-output"></div>
+              </div>
+
+              <div class="card">
+                <div class="card-label">
+                  <span class="label-dot"></span>
+                  Curriculum
+                </div>
+                <div class="card-title">Syllabi & Curriculum</div>
+                <p>
+                  Programme-wise and semester-wise syllabi, helping students plan their term and
+                  focus revision before exams.
+                </p>
+              </div>
+
+              <div class="card">
+                <div class="card-label">
+                  <span class="label-dot"></span>
+                  Library
+                </div>
+                <div class="card-title">Library & E-Resources</div>
+                <p>
+                  A clean jump-off point for digital library logins, journals and e-resources
+                  that support coursework and research.
+                </p>
+              </div>
+
+              <div class="card">
+                <div class="card-label">
+                  <span class="label-dot"></span>
+                  Helpdesk
+                </div>
+                <div class="card-title">Student Support Node</div>
+                <p>
+                  Scholarships, fee queries, certificates and grievance contacts – collected in a
+                  single, student-friendly panel.
+                </p>
+              </div>
             </div>
-        </div>
-    </section>
+          </div>
 
-    <!-- CONTACT -->
-    <section id="contact">
-        <div class="card-section fade-up delay-3">
-            <div class="card-section-inner">
-                <div class="section-header">
-                    <div>
-                        <h2 class="section-title">Contact</h2>
-                        <p class="section-subtitle">
-                            A simple contact form UI. On GitHub Pages this is a front-end demo only,
-                            but it is ready to connect to an email or backend API.
-                        </p>
-                    </div>
-                    <div class="section-tag">Section · Contact Layout</div>
+          <!-- NOTICES / BROADCASTS -->
+          <div class="section" id="section-notices">
+            <div class="section-heading">Broadcasts & Notices</div>
+            <div class="section-subheading">
+              Think of this as the university’s satellite broadcast channel – announcements and
+              news arriving as compact, readable cards.
+            </div>
+
+            <div class="grid grid-2">
+              <div class="card">
+                <div class="card-label">
+                  <span class="label-dot"></span>
+                  Announcements
                 </div>
+                <div class="card-title">Important Notices</div>
+                <ul id="announcementList" style="list-style:none;display:grid;gap:0.55rem;font-size:0.86rem;margin-top:0.3rem;">
+                  <!-- Filled by JS -->
+                </ul>
+              </div>
 
-                <form onsubmit="handleSubmit(event)">
-                    <div>
-                        <label for="name">Your Name</label>
-                        <input id="name" type="text" placeholder="Enter your name" />
-                    </div>
-                    <div>
-                        <label for="email">Email Address</label>
-                        <input id="email" type="email" placeholder="you@example.com" />
-                    </div>
-                    <div>
-                        <label for="message">Message / Query</label>
-                        <textarea id="message" placeholder="Write your query or feedback..."></textarea>
-                    </div>
-                    <button type="submit" class="card-btn" style="margin-top:0.4rem;">
-                        <span>✉</span>
-                        <span>Send Message (Demo)</span>
-                    </button>
+              <div class="card">
+                <div class="card-label">
+                  <span class="label-dot"></span>
+                  Campus News
+                </div>
+                <div class="card-title">Highlights & Achievements</div>
+                <ul id="newsList" style="list-style:none;display:grid;gap:0.55rem;font-size:0.86rem;margin-top:0.3rem;">
+                  <!-- Filled by JS -->
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- CONTACT -->
+          <div class="section" id="section-contact">
+            <div class="section-heading">Contact Console</div>
+            <div class="section-subheading">
+              A simple, focused contact layout that feels like sending a message through a secure
+              channel to the university helpdesk.
+            </div>
+
+            <div class="contact-grid">
+              <div class="card">
+                <div class="card-label">
+                  <span class="label-dot"></span>
+                  Message
+                </div>
+                <div class="card-title">Send a Query (Demo)</div>
+                <form onsubmit="handleContact(event)">
+                  <div>
+                    <label for="name">Your Name</label>
+                    <input id="name" type="text" placeholder="Enter your name" />
+                  </div>
+                  <div>
+                    <label for="email">Email Address</label>
+                    <input id="email" type="email" placeholder="you@example.com" />
+                  </div>
+                  <div>
+                    <label for="message">Message / Query</label>
+                    <textarea id="message" placeholder="Write your query or feedback..."></textarea>
+                  </div>
+                  <button class="btn-ghost" type="submit">
+                    <span>Transmit</span> <span>✉</span>
+                  </button>
+                  <p class="small-note">
+                    On GitHub Pages this is a front-end demo only. In production, this would send your
+                    message to the official university backend or email.
+                  </p>
                 </form>
+              </div>
+
+              <div class="card">
+                <div class="card-label">
+                  <span class="label-dot"></span>
+                  Coordinates
+                </div>
+                <div class="card-title">Campus Coordinates (Concept)</div>
+                <div class="contact-meta">
+                  <div>
+                    <strong>Location:</strong><br />
+                    Sardar Patel University<br />
+                    Vallabh Vidyanagar, Gujarat, India
+                  </div>
+                  <div>
+                    <strong>Official Website:</strong><br />
+                    <a href="https://www.spuvvn.edu" target="_blank" rel="noreferrer" style="color:var(--primary-strong);text-decoration:underline;">
+                      https://www.spuvvn.edu
+                    </a>
+                  </div>
+                  <div>
+                    <strong>Idea for future:</strong><br />
+                    This console could integrate maps, contact numbers and ticket-based helpdesk
+                    so students can track their requests like support tickets.
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
+
         </div>
-    </section>
-</main>
+      </section>
+    </main>
+  </div>
 
-<footer>
-    © <span id="yearSpan"></span> Sardar Patel University – Digital Campus Prototype · Designed & Developed by Sajid Ali Momin
-</footer>
-
-<script>
-    // Smooth scroll helper
-    function scrollToSection(id) {
-        const el = document.getElementById(id);
-        if (el) el.scrollIntoView({ behavior: "smooth" });
+  <script>
+    // CLOCK (IST)
+    function updateClock() {
+      const now = new Date();
+      const time = now.toLocaleTimeString("en-IN", { hour12: false });
+      document.getElementById("clock").textContent = time;
     }
+    setInterval(updateClock, 1000);
+    updateClock();
 
-    // Open official site in new tab
-    function openOfficialSite() {
-        window.open("https://www.spuvvn.edu", "_blank");
-    }
+    // SECTION SWITCHING (ALIEN OS STYLE)
+    const dockButtons = document.querySelectorAll(".dock-btn");
+    const sections = {
+      home: document.getElementById("section-home"),
+      academics: document.getElementById("section-academics"),
+      student: document.getElementById("section-student"),
+      notices: document.getElementById("section-notices"),
+      contact: document.getElementById("section-contact")
+    };
+    const windowTitle = document.getElementById("windowTitle");
 
-    // Toggle extra info inside Student Corner cards
-    function toggleExtra(id) {
-        const el = document.getElementById("extra-" + id);
-        if (!el) return;
-        el.classList.toggle("open");
-    }
+    const titles = {
+      home: "Home · Overview",
+      academics: "Academics · Galaxy View",
+      student: "Student Orbit · Actions",
+      notices: "Broadcasts · Notices",
+      contact: "Contact Console"
+    };
 
-    // Contact form – front-end demo only
-    function handleSubmit(event) {
-        event.preventDefault();
+    dockButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-target");
 
-        const name = document.getElementById("name").value.trim();
-        const email = document.getElementById("email").value.trim();
-        const message = document.getElementById("message").value.trim();
+        dockButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
 
-        if (!name || !email || !message) {
-            alert("Please fill in Name, Email and Message.");
-            return;
+        Object.values(sections).forEach(sec => sec.classList.remove("active"));
+        if (sections[target]) {
+          sections[target].classList.add("active");
         }
 
-        alert("This is a front-end demo (GitHub Pages). In a real deployment, this form would send your message to the university backend or email.");
-        event.target.reset();
-    }
+        windowTitle.textContent = titles[target] || "SPU Orbital Console";
+      });
+    });
 
-    // Result lookup – front-end demo data
-    function lookupResult() {
-        const seatInput = document.getElementById("resultSeat");
-        const output = document.getElementById("resultOutput");
-        const seat = (seatInput.value || "").trim().toUpperCase();
-
-        if (!seat) {
-            output.innerHTML = '<span class="error">Please enter a seat number.</span>';
-            return;
-        }
-
-        const mockResults = {
-            "SPU001": {
-                name: "Aarav Patel",
-                seat: "SPU001",
-                programme: "M.Sc. (Information Technology)",
-                semester: "Sem-2",
-                sgpa: "9.12"
-            },
-            "SPU002": {
-                name: "Khushi Shah",
-                seat: "SPU002",
-                programme: "B.Sc. (Computer Science)",
-                semester: "Sem-4",
-                sgpa: "8.74"
-            }
-        };
-
-        const data = mockResults[seat];
-
-        if (!data) {
-            output.innerHTML = '<span class="error">No demo result found for that seat number.</span>';
-            return;
-        }
-
-        output.innerHTML =
-            "<strong>" + data.name + "</strong><br>" +
-            "Seat: " + data.seat + "<br>" +
-            "Programme: " + data.programme + "<br>" +
-            "Semester: " + data.semester + "<br>" +
-            "SGPA: " + data.sgpa;
-    }
-
-    // Load demo notices (no backend)
-    function loadNotices() {
-        const annList = document.getElementById("announcementList");
-        const newsList = document.getElementById("newsList");
-
-        const announcements = [
-            {
-                type: "Exam",
-                date: "12 March 2025",
-                text: "UG & PG semester examination timetables have been published on the examination portal."
-            },
-            {
-                type: "Admission",
-                date: "05 April 2025",
-                text: "Online application window for the new academic year will open from 10 April."
-            }
-        ];
-
-        const news = [
-            {
-                type: "Event",
-                text: "National-level seminar on Emerging Technologies in Computer Science hosted by the PG Department."
-            },
-            {
-                type: "Achievement",
-                text: "SPU students secured top ranks in inter-university cultural and sports competitions."
-            }
-        ];
-
-        annList.innerHTML = "";
-        announcements.forEach(item => {
-            const li = document.createElement("li");
-            li.className = "notice-item";
-            li.innerHTML =
-                "<span>" + item.type + " · " + item.date + "</span>" +
-                item.text;
-            annList.appendChild(li);
-        });
-
-        newsList.innerHTML = "";
-        news.forEach(item => {
-            const li = document.createElement("li");
-            li.className = "notice-item";
-            li.innerHTML =
-                "<span>" + item.type + "</span>" +
-                item.text;
-            newsList.appendChild(li);
-        });
-    }
-
-    // Mobile nav toggle
-    const navToggle = document.getElementById("navToggle");
-    const mainNav = document.getElementById("mainNav");
-
-    if (navToggle && mainNav) {
-        navToggle.addEventListener("click", () => {
-            document.body.classList.toggle("nav-open");
-        });
-
-        mainNav.querySelectorAll("a").forEach(link => {
-            link.addEventListener("click", () => {
-                document.body.classList.remove("nav-open");
-            });
-        });
-    }
-
-    // Dark / Light mode toggle
+    // THEME TOGGLE
     const themeToggle = document.getElementById("themeToggle");
     const themeIcon = document.getElementById("themeIcon");
     const themeLabel = document.getElementById("themeLabel");
 
-    const savedTheme = localStorage.getItem("spu-theme");
-    if (savedTheme === "light") {
+    function applyTheme(theme) {
+      if (theme === "light") {
         document.body.classList.add("light");
         themeIcon.textContent = "🌙";
-        themeLabel.textContent = "Dark";
+        themeLabel.textContent = "Dark mode";
+      } else {
+        document.body.classList.remove("light");
+        themeIcon.textContent = "☀";
+        themeLabel.textContent = "Light mode";
+      }
+      localStorage.setItem("spu-orbit-theme", theme);
     }
 
+    const savedTheme = localStorage.getItem("spu-orbit-theme") || "dark";
+    applyTheme(savedTheme);
+
     themeToggle.addEventListener("click", () => {
-        document.body.classList.toggle("light");
-        const isLight = document.body.classList.contains("light");
-        themeIcon.textContent = isLight ? "🌙" : "☀";
-        themeLabel.textContent = isLight ? "Dark" : "Light";
-        localStorage.setItem("spu-theme", isLight ? "light" : "dark");
+      const next = document.body.classList.contains("light") ? "dark" : "light";
+      applyTheme(next);
     });
 
-    // Footer year
-    document.getElementById("yearSpan").textContent = new Date().getFullYear();
+    // RESULT DEMO (FRONT-END ONLY)
+    function lookupResult() {
+      const seatInput = document.getElementById("resultSeat");
+      const output = document.getElementById("resultOutput");
+      const seat = (seatInput.value || "").trim().toUpperCase();
 
-    // Trigger fade-up & load notices after load
+      if (!seat) {
+        output.innerHTML = '<span class="error">Please enter a seat number.</span>';
+        return;
+      }
+
+      const mockResults = {
+        "SPU001": {
+          name: "Aarav Patel",
+          seat: "SPU001",
+          programme: "M.Sc. (Information Technology)",
+          semester: "Sem-2",
+          sgpa: "9.12"
+        },
+        "SPU002": {
+          name: "Khushi Shah",
+          seat: "SPU002",
+          programme: "B.Sc. (Computer Science)",
+          semester: "Sem-4",
+          sgpa: "8.74"
+        }
+      };
+
+      const data = mockResults[seat];
+      if (!data) {
+        output.innerHTML = '<span class="error">No demo result found for that seat number.</span>';
+        return;
+      }
+
+      output.innerHTML =
+        "<strong>" + data.name + "</strong><br>" +
+        "Seat: " + data.seat + "<br>" +
+        "Programme: " + data.programme + "<br>" +
+        "Semester: " + data.semester + "<br>" +
+        "SGPA: " + data.sgpa;
+    }
+
+    // CONTACT DEMO
+    function handleContact(e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const message = document.getElementById("message").value.trim();
+
+      if (!name || !email || !message) {
+        alert("Please fill in Name, Email and Message.");
+        return;
+      }
+      alert("Transmission simulated.\n\nOn GitHub Pages this is a demo only. In production, this would send your message to the university helpdesk.");
+      e.target.reset();
+    }
+
+    // DEMO NOTICES
+    function loadDemoNotices() {
+      const announcementList = document.getElementById("announcementList");
+      const newsList = document.getElementById("newsList");
+
+      const announcements = [
+        {
+          type: "Exam",
+          date: "12 March 2025",
+          text: "UG & PG semester examination timetables have been published on the official examination portal."
+        },
+        {
+          type: "Admission",
+          date: "05 April 2025",
+          text: "Online application window for the new academic year opens from 10 April."
+        }
+      ];
+
+      const news = [
+        {
+          type: "Event",
+          text: "National-level seminar on Emerging Technologies in Computer Science organised by the PG Department."
+        },
+        {
+          type: "Achievement",
+          text: "SPU students secure top ranks in inter-university cultural and sports competitions."
+        }
+      ];
+
+      announcementList.innerHTML = "";
+      announcements.forEach(item => {
+        const li = document.createElement("li");
+        li.innerHTML =
+          "<div style='font-size:0.74rem;color:var(--primary-strong);text-transform:uppercase;letter-spacing:0.12em;'>" +
+          item.type + " · " + item.date + "</div>" +
+          "<div>" + item.text + "</div>";
+        announcementList.appendChild(li);
+      });
+
+      newsList.innerHTML = "";
+      news.forEach(item => {
+        const li = document.createElement("li");
+        li.innerHTML =
+          "<div style='font-size:0.74rem;color:var(--primary-strong);text-transform:uppercase;letter-spacing:0.12em;'>" +
+          item.type + "</div>" +
+          "<div>" + item.text + "</div>";
+        newsList.appendChild(li);
+      });
+    }
+
     window.addEventListener("load", () => {
-        document.querySelectorAll(".fade-up").forEach(el => {
-            void el.offsetWidth;
-            el.style.opacity = "1";
-        });
-        loadNotices();
+      loadDemoNotices();
+      // trigger fade-up initial
+      document.querySelectorAll(".section").forEach(sec => {
+        if (sec.classList.contains("active")) {
+          sec.style.opacity = "1";
+          sec.style.transform = "translateY(0)";
+        }
+      });
     });
-</script>
-
+  </script>
 </body>
 </html>
