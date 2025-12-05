@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Sardar Patel University – Premium Redesign</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+        /* =========================================
+           PREMIUM DESIGN TOKENS – LIGHT THEME
+        ==========================================*/
+        :root {
+            --bg: #f5f7fb;
+            --bg-soft: #e5edff;
+            --surface: #ffffff;
+            --surface-soft: #f9fafb;
+
+            --primary: #1d4ed8;
+            --primary-strong: #1e3a8a;
+            --primary-soft: #dbeafe;
+
+            --accent: #f59e0b;
+
+            --text-main: #0f172a;
+            --text-muted: #6b7280;
+            --border-subtle: #e5e7eb;
+
+            --shadow-soft: 0 20px 50px rgba(15, 23, 42, 0.14);
+
+            --radius-xl: 1.8rem;
+            --radius-lg: 1.4rem;
+            --radius-md: 1rem;
+            --radius-sm: 0.65rem;
+
+            --transition-fast: 0.22s ease-out;
+            --transition-slow: 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+
+        /* =========================================
+           DARK THEME TOKENS
+        ==========================================*/
+        body.dark {
+            --bg: #020617;
+            --bg-soft: #020617;
+            --surface: #020617;
+            --surface-soft: #020617;
+
+            --primary: #60a5fa;
+            --primary-soft: #0b1120;
+            --primary-strong: #1d4ed8;
+
+            --accent: #fbbf24;
+
+            --text-main: #e5e7eb;
+            --text-muted: #9ca3af;
+            --border-subtle: #1f2937;
+
+            --shadow-soft: 0 26px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        /* =========================================
+           GLOBAL RESET & BASE
+        ==========================================*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top, var(--bg-soft), var(--bg));
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            transition:
+                background 0.35s ease,
+                color 0.35s ease;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* =========================================
+           STICKY HEADER / NAVBAR
+        ==========================================*/
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(18px);
+            background: linear-gradient(
+                to right,
+                rgba(15, 23, 42, 0.96),
+                rgba(15, 23, 42, 0.9)
+            );
+            border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.55);
+        }
+
+        body.dark header {
+            background: linear-gradient(
+                to right,
+                rgba(15, 23, 42, 0.98),
+                rgba(15, 23, 42, 0.98)
+            );
+        }
+
+        .nav-shell {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0.7rem 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .brand-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 999px;
+            border: 1px solid rgba(248, 250, 252, 0.9);
+            background: #ffffff;
+            object-fit: cover;
+            box-shadow: 0 0 10px rgba(15, 23, 42, 0.55);
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+        }
+
+        .brand-title {
+            font-weight: 800;
+            font-size: 1.05rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #e5e7eb;
+        }
+
+        .brand-subtitle {
+            font-size: 0.78rem;
+            color: #9ca3af;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 0.4rem;
+            background: rgba(15, 23, 42, 0.4);
+            padding: 0.12rem;
+            border-radius: 999px;
+        }
+
+        nav li {
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        nav a {
+            display: block;
+            font-size: 0.84rem;
+            padding: 0.45rem 1.05rem;
+            color: #e5e7eb;
+            font-weight: 500;
+            position: relative;
+            transition:
+                background var(--transition-fast),
+                color var(--transition-fast),
+                transform var(--transition-fast);
+        }
+
+        nav a::after {
+            content: "";
+            position: absolute;
+            left: 16px;
+            right: 16px;
+            bottom: 6px;
+            height: 2px;
+            border-radius: 999px;
+            background: linear-gradient(to right, #60a5fa, #fbbf24);
+            opacity: 0;
+            transform: scaleX(0.4);
+            transform-origin: center;
+            transition:
+                opacity var(--transition-fast),
+                transform var(--transition-fast);
+        }
+
+        nav a:hover {
+            background: rgba(15, 23, 42, 0.1);
+            color: #f9fafb;
+            transform: translateY(-1px);
+        }
+
+        nav a:hover::after {
+            opacity: 1;
+            transform: scaleX(1);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .toggle-theme {
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.75);
+            background: rgba(15, 23, 42, 0.4);
+            color: #e5e7eb;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            cursor: pointer;
+            font-weight: 500;
+            transition:
+                background var(--transition-fast),
+                transform var(--transition-fast),
+                border-color var(--transition-fast),
+                box-shadow var(--transition-fast);
+        }
+
+        .toggle-theme span {
+            font-size: 1rem;
+        }
+
+        .toggle-theme:hover {
+            background: rgba(15, 23, 42, 0.9);
+            border-color: rgba(248, 250, 252, 0.9);
+            transform: translateY(-1px);
+            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.6);
+        }
+
+        /* HAMBURGER BUTTON (HIDDEN ON DESKTOP) */
+        .nav-toggle {
+            display: none;
+            border: none;
+            background: rgba(15, 23, 42, 0.85);
+            color: #e5e7eb;
+            border-radius: 999px;
+            padding: 0.3rem 0.8rem;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+
+        body.dark .nav-toggle {
+            background: #111827;
+        }
+
+        /* =========================================
+           LAYOUT SHELL
+        ==========================================*/
+        .shell {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 2.4rem 1.25rem 3.2rem;
+        }
+
+        section {
+            margin-bottom: 2.5rem;
+        }
+
+        /* =========================================
+           HERO – TEXT ONLY
+        ==========================================*/
+        #hero {
+            max-width: 1140px;
+            margin: 1.9rem auto 2.6rem;
+            padding: 0 1.25rem;
+        }
+
+        .hero-text-shell {
+            background: var(--surface);
+            border-radius: 1.8rem;
+            padding: 2.1rem 2rem 2rem;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .hero-text-inner {
+            max-width: 40rem;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.3rem 0.9rem;
+            border-radius: 999px;
+            background: rgba(219, 234, 254, 0.9);
+            border: 1px solid rgba(191, 219, 254, 0.9);
+            font-size: 0.72rem;
+            color: var(--primary-strong);
+            margin-bottom: 1rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .badge-dot {
+            width: 0.45rem;
+            height: 0.45rem;
+            border-radius: 999px;
+            background: #22c55e;
+            box-shadow: 0 0 8px rgba(34, 197, 94, 0.9);
+        }
+
+        .hero-title-plain {
+            font-size: 2.3rem;
+            line-height: 1.15;
+            color: var(--text-main);
+            font-weight: 750;
+            margin-bottom: 0.4rem;
+        }
+
+        .hero-motto-plain {
+            font-size: 0.98rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .hero-text-plain {
+            font-size: 0.96rem;
+            color: var(--text-muted);
+            margin-bottom: 1.4rem;
+            max-width: 32rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn-primary,
+        .btn-outline {
+            border-radius: 999px;
+            padding: 0.65rem 1.55rem;
+            font-size: 0.92rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition:
+                background var(--transition-fast),
+                color var(--transition-fast),
+                transform var(--transition-fast),
+                box-shadow var(--transition-fast),
+                border-color var(--transition-fast);
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, var(--primary), var(--primary-strong));
+            color: #f9fafb;
+            box-shadow: 0 14px 32px rgba(37, 99, 235, 0.6);
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 42px rgba(37, 99, 235, 0.85);
+        }
+
+        .btn-outline {
+            background: var(--surface-soft);
+            border-color: rgba(148, 163, 184, 0.8);
+            color: var(--primary-strong);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-soft);
+            transform: translateY(-2px);
+            box-shadow: 0 16px 36px rgba(37, 99, 235, 0.4);
+            border-color: rgba(37, 99, 235, 0.7);
+        }
+
+        .hero-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.6rem;
+            font-size: 0.82rem;
+        }
+
+        .hero-stats-plain {
+            margin-top: 0.3rem;
+            color: var(--text-muted);
+        }
+
+        .hero-stats-plain .hero-stat span:first-child {
+            color: var(--primary-strong);
+        }
+
+        .hero-stat span:first-child {
+            display: block;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 640px) {
+            .hero-text-shell {
+                padding: 1.7rem 1.4rem 1.5rem;
+            }
+            .hero-title-plain {
+                font-size: 1.9rem;
+            }
+        }
+
+        /* =========================================
+           CARD SECTIONS
+        ==========================================*/
+        .card-section {
+            background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.12), transparent 50%),
+                        radial-gradient(circle at bottom right, rgba(249, 115, 22, 0.08), transparent 55%),
+                        var(--surface);
+            border-radius: var(--radius-xl);
+            padding: 2.4rem 2.1rem;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--border-subtle);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-section-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: 1.9rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-strong);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .section-subtitle {
+            font-size: 0.96rem;
+            color: var(--text-muted);
+            margin-bottom: 1.6rem;
+        }
+
+        /* =========================================
+           GRID & CARDS
+        ==========================================*/
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.3rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.3rem;
+        }
+
+        .info-card {
+            background: var(--surface-soft);
+            border-radius: var(--radius-lg);
+            padding: 1.25rem 1.25rem 1.1rem;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 12px 26px rgba(15, 23, 42, 0.06);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            position: relative;
+            overflow: hidden;
+            transition:
+                transform var(--transition-fast),
+                box-shadow var(--transition-fast),
+                border-color var(--transition-fast),
+                background 0.25s ease;
+        }
+
+        .info-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(37, 99, 235, 0.13), transparent 55%);
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            pointer-events: none;
+        }
+
+        .info-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
+            border-color: rgba(37, 99, 235, 0.45);
+            background: var(--surface);
+        }
+
+        .info-card:hover::after {
+            opacity: 1;
+        }
+
+        .info-card h3 {
+            font-size: 1.02rem;
+            margin-bottom: 0.2rem;
+            color: var(--text-main);
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.7rem;
+            padding: 0.18rem 0.7rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.9);
+            background: rgba(219, 234, 254, 0.9);
+            color: #1d4ed8;
+            margin-bottom: 0.2rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .chip-dot {
+            width: 0.3rem;
+            height: 0.3rem;
+            border-radius: 999px;
+            background: #2563eb;
+        }
+
+        body.dark .chip {
+            background: rgba(15, 23, 42, 0.9);
+            color: #bfdbfe;
+        }
+
+        .card-btn {
+            margin-top: 0.4rem;
+            font-size: 0.82rem;
+            padding: 0.4rem 0.95rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.85);
+            background: rgba(249, 250, 251, 0.98);
+            color: var(--primary-strong);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            transition:
+                background var(--transition-fast),
+                transform var(--transition-fast),
+                box-shadow var(--transition-fast),
+                border-color var(--transition-fast);
+        }
+
+        .card-btn:hover {
+            background: var(--primary-soft);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 26px rgba(37, 99, 235, 0.4);
+            border-color: rgba(37, 99, 235, 0.65);
+        }
+
+        .card-btn span {
+            font-size: 0.98rem;
+        }
+
+        .card-extra {
+            margin-top: 0.5rem;
+            padding-top: 0.45rem;
+            border-top: 1px dashed rgba(148, 163, 184, 0.7);
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            display: none;
+        }
+
+        .card-extra.open {
+            display: block;
+        }
+
+        .card-extra ul {
+            padding-left: 1rem;
+        }
+
+        /* =========================================
+           NOTICES
+        ==========================================*/
+        .notice-list {
+            list-style: none;
+            display: grid;
+            gap: 0.85rem;
+        }
+
+        .notice-item {
+            background: var(--surface-soft);
+            border-radius: 0.9rem;
+            padding: 0.85rem 1rem;
+            border: 1px solid var(--border-subtle);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            display: grid;
+            gap: 0.18rem;
+            transition:
+                transform var(--transition-fast),
+                box-shadow var(--transition-fast),
+                border-color var(--transition-fast),
+                background 0.25s ease;
+            box-shadow: 0 12px 26px rgba(15, 23, 42, 0.06);
+        }
+
+        .notice-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 18px 34px rgba(15, 23, 42, 0.2);
+            border-color: rgba(37, 99, 235, 0.5);
+            background: var(--surface);
+        }
+
+        .notice-item span {
+            font-size: 0.74rem;
+            color: var(--primary-strong);
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        /* =========================================
+           CONTACT FORM
+        ==========================================*/
+        form {
+            max-width: 460px;
+            display: grid;
+            gap: 0.9rem;
+        }
+
+        label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 0.6rem 0.8rem;
+            border-radius: 0.85rem;
+            border: 1px solid var(--border-subtle);
+            background: var(--surface-soft);
+            color: var(--text-main);
+            font-size: 0.9rem;
+            transition:
+                border-color var(--transition-fast),
+                box-shadow var(--transition-fast),
+                background 0.23s ease;
+            font-family: inherit;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: rgba(37, 99, 235, 0.7);
+            box-shadow: 0 0 0 1.5px rgba(37, 99, 235, 0.5);
+            background: var(--surface);
+        }
+
+        textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        /* =========================================
+           FOOTER
+        ==========================================*/
+        footer {
+            border-top: 1px solid rgba(148, 163, 184, 0.35);
+            padding: 1.1rem 1.25rem 1.8rem;
+            font-size: 0.8rem;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        /* =========================================
+           ANIMATIONS
+        ==========================================*/
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(18px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .fade-up {
+            opacity: 0;
+            animation: fadeUp 0.7s var(--transition-fast) forwards;
+        }
+
+        .delay-1 { animation-delay: 0.08s; }
+        .delay-2 { animation-delay: 0.18s; }
+        .delay-3 { animation-delay: 0.28s; }
+
+        /* =========================================
+           RESPONSIVE
+        ==========================================*/
+        @media (max-width: 900px) {
+            .grid-3 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            .nav-shell {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.7rem;
+                padding: 0.7rem 1rem;
+            }
+
+            .nav-right {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 0.5rem;
+            }
+
+            /* SHOW HAMBURGER ON MOBILE */
+            .nav-toggle {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            /* Make nav act like dropdown */
+            #mainNav {
+                position: absolute;
+                top: 100%;
+                left: 1rem;
+                right: 1rem;
+                margin-top: 0.4rem;
+                z-index: 40;
+            }
+
+            #mainNav ul {
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
+                background: rgba(15, 23, 42, 0.98);
+                padding: 0.5rem;
+                border-radius: 1rem;
+                border: 1px solid rgba(148, 163, 184, 0.85);
+                box-shadow: 0 18px 40px rgba(15, 23, 42, 0.8);
+                display: none; /* hidden by default */
+            }
+
+            body.dark #mainNav ul {
+                background: #020617;
+            }
+
+            #mainNav li {
+                width: 100%;
+            }
+
+            #mainNav a {
+                width: 100%;
+                padding: 0.6rem 0.8rem;
+            }
+
+            /* WHEN BODY HAS nav-open, SHOW MENU */
+            body.nav-open #mainNav ul {
+                display: flex;
+            }
+
+            .hero-text-shell {
+                padding: 1.7rem 1.4rem 1.5rem;
+            }
+
+            .hero-title-plain {
+                font-size: 1.9rem;
+            }
+
+            .grid-3,
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .shell {
+                padding-inline: 1rem;
+            }
+
+            .card-section {
+                padding-inline: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="nav-shell">
+        <div class="brand">
+            <!-- Replace src with your logo or remove img if not needed -->
+            <img src="spu-logo.png" alt="SPU Logo" class="brand-logo" />
+            <div class="brand-text">
+                <div class="brand-title">Sardar Patel University</div>
+                <div class="brand-subtitle">Vallabh Vidyanagar · Gujarat</div>
+            </div>
+        </div>
+
+        <div class="nav-right">
+            <!-- HAMBURGER BUTTON -->
+            <button class="nav-toggle" id="navToggle" type="button">
+                ☰
+            </button>
+
+            <!-- NAV WITH ID FOR JS -->
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#academics">Academics</a></li>
+                    <li><a href="#student-corner">Student Corner</a></li>
+                    <li><a href="#notices">Notices</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+
+            <button class="toggle-theme" id="themeToggle" type="button">
+                <span id="themeIcon">🌙</span>
+                <span id="themeLabel">Dark</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- HERO -->
+<section id="hero" class="fade-up">
+    <div class="hero-text-shell">
+        <div class="hero-text-inner">
+            <div class="badge">
+                <span class="badge-dot"></span>
+                <span>Prompt2Create · Website Design Competition</span>
+            </div>
+
+            <h1 class="hero-title-plain">
+                A Premium Digital Experience<br />for Sardar Patel University.
+            </h1>
+            <p class="hero-motto-plain">
+                “Character and Conduct are the Fruits of Education.”
+            </p>
+            <p class="hero-text-plain">
+                This prototype reimagines the SPU homepage as a calm, modern, and
+                student-focused portal, with clear navigation for admissions,
+                examinations, results, notices, and support.
+            </p>
+
+            <div class="hero-actions">
+                <button class="btn-primary" onclick="scrollToSection('student-corner')">
+                    🎓 Student Corner
+                </button>
+                <button class="btn-outline" onclick="scrollToSection('contact')">
+                    ✉ Contact
+                </button>
+            </div>
+
+            <div class="hero-stats hero-stats-plain">
+                <div class="hero-stat">
+                    <span>1955</span>
+                    Year of establishment
+                </div>
+                <div class="hero-stat">
+                    <span>Multi-Faculty</span>
+                    Arts · Science · Commerce · More
+                </div>
+                <div class="hero-stat">
+                    <span>Student First</span>
+                    Design around real journeys
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<main class="shell">
+
+    <!-- ABOUT -->
+    <section id="about" class="fade-up delay-1">
+        <div class="card-section">
+            <div class="card-section-inner">
+                <h2 class="section-title">About</h2>
+                <p class="section-subtitle">
+                    Sardar Patel University is a renowned multi-faculty institution in Vallabh Vidyanagar.
+                    This redesign focuses on presenting its heritage and vision in a clean, modern UI.
+                </p>
+
+                <div class="grid-3">
+                    <article class="info-card">
+                        <div class="chip">
+                            <span class="chip-dot"></span>
+                            Legacy
+                        </div>
+                        <h3>Established Heritage</h3>
+                        <p>
+                            Generations of students have been shaped here through value-based higher education,
+                            integrating academic excellence with social responsibility.
+                        </p>
+                    </article>
+
+                    <article class="info-card">
+                        <div class="chip">
+                            <span class="chip-dot"></span>
+                            Campus
+                        </div>
+                        <h3>Education Town</h3>
+                        <p>
+                            Located in Vallabh Vidyanagar, a unique education hub with colleges, hostels,
+                            and facilities built around the needs of learners.
+                        </p>
+                    </article>
+
+                    <article class="info-card">
+                        <div class="chip">
+                            <span class="chip-dot"></span>
+                            Vision
+                        </div>
+                        <h3>Digital-Ready Design</h3>
+                        <p>
+                            This interface prepares SPU for a fully integrated digital campus, where students
+                            can access services quickly from any device.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ACADEMICS -->
+    <section id="academics" class="fade-up delay-2">
+        <div class="card-section">
+            <div class="card-section-inner">
+                <h2 class="section-title">Academics</h2>
+                <p class="section-subtitle">
+                    Academic information is organised so that prospective students, parents, and faculty
+                    can understand programmes and resources at a glance.
+                </p>
+
+                <div class="grid-3">
+                    <article class="info-card">
+                        <div class="chip">
+                            <span class="chip-dot"></span>
+                            Faculties
+                        </div>
+                        <h3>Faculties & Schools</h3>
+                        <p>
+                            Arts, Science, Commerce, Management, Education and other faculties can be linked
+                            here with dedicated pages for departments and programmes.
+                        </p>
+                    </article>
+
+                    <article class="info-card">
+                        <div class="chip">
+                            <span class="chip-dot"></span>
+                            Programmes
+                        </div>
+                        <h3>UG · PG · Research</h3>
+                        <p>
+                            From undergraduate degrees to doctoral research, programmes can be grouped and
+                            filtered by level and specialisation for easy exploration.
+                        </p>
+                    </article>
+
+                    <article class="info-card">
+                        <div class="chip">
+                            <span class="chip-dot"></span>
+                            Resources
+                        </div>
+                        <h3>Academic Resources</h3>
+                        <p>
+                            Syllabi, regulations, academic calendars, and important circulars can all be
+                            centralised and maintained here.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STUDENT CORNER -->
+    <section id="student-corner" class="fade-up delay-2">
+        <div class="card-section">
+            <div class="card-section-inner">
+                <h2 class="section-title">Student Corner</h2>
+                <p class="section-subtitle">
+                    A single place for high-frequency student actions – admissions, examinations, results,
+                    syllabi, and support – designed like a small dashboard.
+                </p>
+
+                <div class="grid-3">
+                    <article class="info-card">
+                        <div class="chip">
+                            <span class="chip-dot"></span>
+                            Admissions
+                        </div>
+                        <h3>Online Admissions</h3>
+                        <p>
+                            A gateway for UG, PG and PhD admission notifications, eligibility criteria,
+                            and important dates.
+                        </p>
+                        <button class="card-btn" type="button" onclick="toggleExtra('admissions')">
+                            View details <span>⌄</span>
+                        </button>
+                        <div class="card-extra" id="extra-admissions">
+                            <ul>
+                                <li>Separate flows for UG / PG / PhD.</li>
+                                <li>Highlight last dates and important steps.</li>
+                                <li>Future: integrate full online application.</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <article class="info-card">
+                        <div class="chip">
+                            <span class="chip-dot"></span>
+                            Examinations
+                        </div>
+                        <h3>Examination Cell</h3>
+                        <p>
+                            Consolidated exam schedules, guidelines, and hall-ticket instructions in one
+                            easy-to-find location.
+                        </p>
+                        <button class="card-btn" type="button" onclick="toggleExtra('exams')">
+                            Open exam info <span>⌄</span>
+                        </button>
+                        <div class="card-extra" id="extra-exams">
+                            <ul>
+                                <li>Download timetables semester-wise.</li>
+                                <li>Display rules and reporting times.</li>
+                                <li>Future: seat and room lookup.</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <article class="info-card">
+                        <div class="chip">
+                            <span class="chip-dot"></span>
+                            Results
+                        </div>
+                        <h3>Results & Marksheets</h3>
+                        <p>
+                            This prototype section can be linked to a live result portal or marksheet
+                            verification system.
+                        </p>
+                        <button class="card-btn" type="button" onclick="toggleExtra('results')">
+                            Result info <span>⌄</span>
+                        </button>
+                        <div class="card-extra" id="extra-results">
+                            <ul>
+                                <li>Seat number based result search.</li>
+                                <li>Downloadable marksheets.</li>
+                                <li>Separate view for revaluation / reassessment.</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <article class="info-card">
+                        <div class="chip">
+                            <span class="chip-dot"></span>
+                            Curriculum
+                        </div>
+                        <h3>Syllabi & Curriculum</h3>
+                        <p>
+                            Programme-wise and semester-wise syllabi, helping students plan coursework
+                            and revisions.
+                        </p>
+                        <button class="card-btn" type="button" onclick="toggleExtra('syllabi')">
+                            View syllabi list <span>⌄</span>
+                        </button>
+                        <div class="card-extra" id="extra-syllabi">
+                            <ul>
+                                <li>Download syllabi PDFs.</li>
+                                <li>Highlight revised or new courses.</li>
+                                <li>Basic search by course title/code.</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <article class="info-card">
+                        <div class="chip">
+                            <span class="chip-dot"></span>
+                            Library
+                        </div>
+                        <h3>Library & E-Resources</h3>
+                        <p>
+                            Links to digital library logins, e-journals, and subscribed databases to
+                            support study and research.
+                        </p>
+                        <button class="card-btn" type="button" onclick="toggleExtra('library')">
+                            Browse resources <span>⌄</span>
+                        </button>
+                        <div class="card-extra" id="extra-library">
+                            <ul>
+                                <li>Access to digital repositories.</li>
+                                <li>Remote access instructions.</li>
+                                <li>Library timings and contact details.</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <article class="info-card">
+                        <div class="chip">
+                            <span class="chip-dot"></span>
+                            Support
+                        </div>
+                        <h3>Student Helpdesk</h3>
+                        <p>
+                            A single window for scholarships, fee queries, certificates and general
+                            student support.
+                        </p>
+                        <button class="card-btn" type="button" onclick="toggleExtra('helpdesk')">
+                            Contact support <span>⌄</span>
+                        </button>
+                        <div class="card-extra" id="extra-helpdesk">
+                            <ul>
+                                <li>Official email IDs & phone numbers.</li>
+                                <li>Future: online ticket / query system.</li>
+                            </ul>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NOTICES -->
+    <section id="notices" class="fade-up delay-3">
+        <div class="card-section">
+            <div class="card-section-inner">
+                <h2 class="section-title">Notices</h2>
+                <p class="section-subtitle">
+                    Sample static notices to illustrate how announcements and campus news
+                    can be highlighted in a premium way.
+                </p>
+
+                <div class="grid-2">
+                    <div>
+                        <h3 style="font-size:1.02rem;margin-bottom:0.6rem;">Important Announcements</h3>
+                        <ul class="notice-list">
+                            <li class="notice-item">
+                                <span>Exam · 12 March 2025</span>
+                                UG & PG semester examination timetables have been published on the
+                                examination portal.
+                            </li>
+                            <li class="notice-item">
+                                <span>Admission · 05 April 2025</span>
+                                Online application window for new academic year admissions will open
+                                from 10 April.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 style="font-size:1.02rem;margin-bottom:0.6rem;">News & Campus Highlights</h3>
+                        <ul class="notice-list">
+                            <li class="notice-item">
+                                <span>Event</span>
+                                National-level seminar on Emerging Technologies in Computer Science
+                                hosted by the PG Department.
+                            </li>
+                            <li class="notice-item">
+                                <span>Achievement</span>
+                                SPU students secured top ranks in inter-university cultural and sports
+                                competitions.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="fade-up delay-3">
+        <div class="card-section">
+            <div class="card-section-inner">
+                <h2 class="section-title">Contact</h2>
+                <p class="section-subtitle">
+                    A simple contact form layout. In this static GitHub Pages version it does not send
+                    data, but the UI is ready to be connected to a backend or email service.
+                </p>
+
+                <form onsubmit="handleContact(event)">
+                    <div>
+                        <label for="name">Your Name</label>
+                        <input id="name" type="text" placeholder="Enter your name" />
+                    </div>
+                    <div>
+                        <label for="email">Email Address</label>
+                        <input id="email" type="email" placeholder="you@example.com" />
+                    </div>
+                    <div>
+                        <label for="message">Message / Query</label>
+                        <textarea id="message" placeholder="Write your query or feedback..."></textarea>
+                    </div>
+                    <button type="submit" class="card-btn" style="margin-top:0.4rem;">
+                        <span>✉</span>
+                        <span>Send Message (Demo)</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    © 2025 Sardar Patel University – Premium Redesign Prototype · Designed & Developed by Sajid Ali Momin
+</footer>
+
+<script>
+    // Smooth scroll helper
+    function scrollToSection(id) {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+
+    // Toggle extra info in Student Corner cards
+    function toggleExtra(id) {
+        const el = document.getElementById("extra-" + id);
+        if (!el) return;
+        el.classList.toggle("open");
+    }
+
+    // Demo contact handler (static)
+    function handleContact(event) {
+        event.preventDefault();
+        alert("This is a static demo on GitHub Pages. In a real deployment, this form would send data to the university backend.");
+        event.target.reset();
+    }
+
+    // Mobile nav toggle
+    const navToggle = document.getElementById("navToggle");
+    const mainNav = document.getElementById("mainNav");
+
+    if (navToggle && mainNav) {
+        navToggle.addEventListener("click", () => {
+            document.body.classList.toggle("nav-open");
+        });
+
+        mainNav.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+                document.body.classList.remove("nav-open");
+            });
+        });
+    }
+
+    // Dark / light theme toggle
+    const themeToggle = document.getElementById("themeToggle");
+    const themeIcon = document.getElementById("themeIcon");
+    const themeLabel = document.getElementById("themeLabel");
+
+    function applyTheme(theme) {
+        if (theme === "dark") {
+            document.body.classList.add("dark");
+            themeIcon.textContent = "☀";
+            themeLabel.textContent = "Light";
+        } else {
+            document.body.classList.remove("dark");
+            themeIcon.textContent = "🌙";
+            themeLabel.textContent = "Dark";
+        }
+        localStorage.setItem("spu-theme", theme);
+    }
+
+    const savedTheme = localStorage.getItem("spu-theme") || "light";
+    applyTheme(savedTheme);
+
+    if (themeToggle) {
+        themeToggle.addEventListener("click", () => {
+            const nextTheme = document.body.classList.contains("dark") ? "light" : "dark";
+            applyTheme(nextTheme);
+        });
+    }
+
+    // Trigger fade-up animation
+    window.addEventListener("load", () => {
+        document.querySelectorAll(".fade-up").forEach(el => {
+            void el.offsetWidth;
+            el.style.opacity = "1";
+        });
+    });
+</script>
+
+</body>
+</html>
