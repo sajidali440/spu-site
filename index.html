@@ -377,7 +377,7 @@
     }
 
     /* =========================================
-       RIGHT CONSOLE – MAIN WINDOW
+       RIGHT CONSOLE
     ========================================== */
     .console {
       display: flex;
@@ -482,7 +482,6 @@
       height: 8px;
       border-radius: 999px;
     }
-
     .dot.red { background: #f97373; }
     .dot.yellow { background: #fde68a; }
     .dot.green { background: #4ade80; }
@@ -503,7 +502,7 @@
     }
 
     /* =========================================
-       COMMAND BAR (BOTTOM)
+       COMMAND BAR & FOOTER
     ========================================== */
     .command-bar {
       margin-top: 0.7rem;
@@ -530,6 +529,19 @@
       font-size: 0.7rem;
     }
 
+    .footer-note {
+      margin-top: 0.8rem;
+      font-size: 0.76rem;
+      text-align: right;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      .footer-note {
+        text-align: left;
+      }
+    }
+
     /* =========================================
        SECTION CONTENT
     ========================================== */
@@ -549,14 +561,12 @@
       display: grid;
       gap: 1.1rem;
     }
-
     .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
     @media (max-width: 900px) {
       .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
-
     @media (max-width: 640px) {
       .grid-2,
       .grid-3 { grid-template-columns: 1fr; }
@@ -660,14 +670,13 @@
       margin-bottom: 0.9rem;
     }
 
-    /* HOME: LEFT/RIGHT BLOCKS */
+    /* HOME rows */
     .overview-row {
       display: grid;
       grid-template-columns: 2.1fr 1.4fr;
       gap: 1.1rem;
       margin-bottom: 1.2rem;
     }
-
     @media (max-width: 900px) {
       .overview-row { grid-template-columns: 1fr; }
     }
@@ -684,7 +693,6 @@
       color: var(--accent-warm);
       background: radial-gradient(circle at 20% 0%, rgba(248,250,252,0.3), transparent 60%);
     }
-
     .orbit-badge span:first-child {
       font-size: 0.9rem;
     }
@@ -697,7 +705,6 @@
       display: grid;
       gap: 0.32rem;
     }
-
     .timeline-item span {
       font-weight: 600;
       color: var(--primary-strong);
@@ -716,12 +723,10 @@
       position: relative;
       border: 1px solid rgba(148,163,184,0.6);
     }
-
     .holo-image img {
       transform: scale(1.03);
       filter: saturate(1.1);
     }
-
     .holo-glass {
       position: absolute;
       inset: 0;
@@ -741,7 +746,6 @@
       align-items: center;
       margin-top: 0.55rem;
     }
-
     .result-form input {
       flex: 1;
       padding: 0.42rem 0.75rem;
@@ -751,11 +755,9 @@
       color: var(--text-main);
       font-size: 0.8rem;
     }
-
     body.light .result-form input {
       background: #ffffff;
     }
-
     .result-form input:focus {
       outline: none;
       border-color: rgba(56, 189, 248, 0.9);
@@ -779,7 +781,6 @@
         box-shadow var(--transition-fast),
         border-color var(--transition-fast);
     }
-
     .btn-ghost:hover {
       background: rgba(15,23,42,0.92);
       color: #e5e7eb;
@@ -787,7 +788,6 @@
       box-shadow: 0 12px 28px rgba(15,23,42,0.85);
       transform: translateY(-1px);
     }
-
     body.light .btn-ghost:hover {
       background: #eff6ff;
       color: #1d4ed8;
@@ -798,15 +798,12 @@
       font-size: 0.8rem;
       color: var(--text-muted);
     }
-
     .result-output strong {
       color: var(--primary-strong);
     }
-
     .error {
       color: #fb7185;
     }
-
     body.light .error {
       color: #b91c1c;
     }
@@ -817,23 +814,19 @@
       grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
       gap: 1.1rem;
     }
-
     @media (max-width: 900px) {
       .contact-grid { grid-template-columns: 1fr; }
     }
-
     form {
       display: grid;
       gap: 0.8rem;
     }
-
     label {
       font-size: 0.8rem;
       color: var(--text-muted);
       display: block;
       margin-bottom: 0.16rem;
     }
-
     input,
     textarea {
       width: 100%;
@@ -849,65 +842,46 @@
         background 0.2s ease;
       resize: vertical;
     }
-
     body.light input,
     body.light textarea {
       background: #ffffff;
       color: #020617;
     }
-
     input:focus,
     textarea:focus {
       outline: none;
       border-color: rgba(56, 189, 248, 0.95);
       box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.85);
     }
-
     textarea {
       min-height: 120px;
     }
-
     .contact-meta {
       font-size: 0.82rem;
       color: var(--text-muted);
       display: grid;
       gap: 0.55rem;
     }
-
     .contact-meta strong {
       color: var(--primary-strong);
     }
 
-    /* SECTION VISIBILITY & ANIM */
+    /* SECTION VISIBILITY */
     .section {
       display: none;
       opacity: 0;
       transform: translateY(10px);
       transition: opacity 0.25s ease-out, transform 0.25s ease-out;
     }
-
     .section.active {
       display: block;
       opacity: 1;
       transform: translateY(0);
     }
-
-    /* FOOTER SMALL */
-    .footer-note {
-      margin-top: 0.8rem;
-      font-size: 0.76rem;
-      text-align: right;
-      color: var(--text-muted);
-    }
-
-    @media (max-width: 768px) {
-      .footer-note {
-        text-align: left;
-      }
-    }
   </style>
 </head>
 <body>
+  <!-- Background grid & glows -->
   <div class="grid-overlay"></div>
   <div class="corner-glow glow-top"></div>
   <div class="corner-glow glow-bottom"></div>
@@ -917,7 +891,7 @@
     <aside class="dock">
       <div class="brand-block">
         <div class="brand-orbit">
-          <!-- Use your own logo file as spu-logo.png in same folder -->
+          <!-- Replace with your own logo file in assets/logo.png -->
           <img src="spu-logo.jpeg" alt="SPU Logo" class="brand-logo" />
         </div>
         <div class="brand-caption">
@@ -989,11 +963,11 @@
         </div>
 
         <div class="window-body">
-          <!-- HOME SECTION -->
+          <!-- HOME -->
           <div class="section active" id="section-home">
             <div class="section-heading">Welcome to the SPU Holo-Core</div>
             <div class="section-subheading">
-              A completely reimagined SPU homepage presented as a futuristic control core instead of a
+              A reimagined SPU homepage presented as a futuristic control core instead of a
               traditional website. One calm window, multiple orbits.
             </div>
 
@@ -1015,7 +989,7 @@
                     <div class="big-number">1955</div>
                     <p style="font-size:0.8rem;">
                       Decades of value-based higher education across multiple faculties, now imagined
-                      as a clean, digital interface.
+                      as a calm, modern digital interface.
                     </p>
                   </div>
                   <div class="card">
@@ -1062,13 +1036,12 @@
                     </div>
                   </div>
                   <p class="small-note">
-                    In a real implementation, this could evolve into actual activity tracking
+                    In a real implementation, this could evolve into activity tracking
                     for logged-in students (recent actions, quick links, etc.).
                   </p>
 
-                  <!-- Optional campus hologram image -->
                   <div class="holo-image" style="margin-top:0.7rem;">
-                    <!-- Put your campus photo as spu-campus.jpg (optional) -->
+                    <!-- Put your campus photo as assets/spu-campus.jpg -->
                     <img src="spu-univ.jpg" alt="SPU Campus (Concept)" />
                     <div class="holo-glass"></div>
                   </div>
@@ -1080,9 +1053,9 @@
               <div class="card-title">What makes this interface unique for SPU?</div>
               <p style="font-size:0.9rem;">
                 Instead of separate pages for Home, Academics, Notices and Contact, everything is pulled into
-                one holo window. The left dock behaves like a small OS launcher and the content transitions
-                smoothly within the console. The design stays light on the eyes with a dark default theme and
-                a bright alt theme for daytime viewing.
+                one holo window. The left dock behaves like an OS launcher and the content transitions
+                smoothly within the console. The design stays light on the eyes with a dark neon theme and a
+                clean academic light mode for daytime viewing.
               </p>
               <div class="pill-row">
                 <div class="pill">OS-style navigation</div>
@@ -1093,12 +1066,12 @@
             </div>
           </div>
 
-          <!-- ACADEMICS SECTION -->
+          <!-- ACADEMICS -->
           <div class="section" id="section-academics">
             <div class="section-heading">Academics Galaxy</div>
             <div class="section-subheading">
-              Faculties, programmes and curriculum visualised as an academic galaxy, making it easier for
-              students and parents to understand the structure at a glance.
+              Faculties, programmes and curriculum visualised as an academic galaxy, making it easier to
+              understand the structure at a glance.
             </div>
 
             <div class="grid grid-3">
@@ -1110,7 +1083,7 @@
                 <div class="card-title">Core Academic Orbits</div>
                 <p>
                   Major faculties like Arts, Science, Commerce, Management, Education and others become
-                  “orbits” in this galaxy. Each orbit can expand into deep detail pages in a full system.
+                  “orbits” in this galaxy. Each orbit can expand into detailed pages in a full system.
                 </p>
                 <div class="pill-row">
                   <div class="pill">Faculty of Arts</div>
@@ -1155,7 +1128,7 @@
             </div>
           </div>
 
-          <!-- STUDENT ORBIT SECTION -->
+          <!-- STUDENT ORBIT -->
           <div class="section" id="section-student">
             <div class="section-heading">Student Orbit</div>
             <div class="section-subheading">
@@ -1201,12 +1174,12 @@
               <div class="card">
                 <div class="card-label">
                   <span class="label-dot"></span>
-                  Results (Demo)
+                  Results (Live Demo)
                 </div>
-                <div class="card-title">Result Lookup – Front-end Demo</div>
+                <div class="card-title">Result Lookup · Backend API</div>
                 <p>
-                  Enter a seat number to see a sample result powered entirely on the front-end.
-                  In a real deployment, this would connect to an official result API.
+                  Enter a seat number to see a sample result powered by the SPU Holo-Core backend.
+                  In a real deployment, this would connect to the official result database.
                 </p>
 
                 <div class="result-form">
@@ -1256,12 +1229,12 @@
             </div>
           </div>
 
-          <!-- NOTICES SECTION -->
+          <!-- NOTICES -->
           <div class="section" id="section-notices">
             <div class="section-heading">Broadcasts & Notices</div>
             <div class="section-subheading">
               University announcements and campus highlights presented as neat broadcast cards,
-              ready to be powered by a real backend.
+              powered by the backend notices API.
             </div>
 
             <div class="grid grid-2">
@@ -1289,7 +1262,7 @@
             </div>
           </div>
 
-          <!-- CONTACT SECTION -->
+          <!-- CONTACT -->
           <div class="section" id="section-contact">
             <div class="section-heading">Contact Console</div>
             <div class="section-subheading">
@@ -1303,7 +1276,7 @@
                   <span class="label-dot"></span>
                   Message
                 </div>
-                <div class="card-title">Send a Query (Demo)</div>
+                <div class="card-title">Send a Query (Live Demo)</div>
                 <form onsubmit="handleContact(event)">
                   <div>
                     <label for="name">Your Name</label>
@@ -1321,8 +1294,8 @@
                     <span>Transmit</span> <span>✉</span>
                   </button>
                   <p class="small-note">
-                    On GitHub Pages this is a front-end demo only. In production, this would send your
-                    message to the official SPU helpdesk or email.
+                    This prototype sends your message to the backend and stores it in a JSON file.
+                    In production, it would reach the official SPU helpdesk.
                   </p>
                 </form>
               </div>
@@ -1348,7 +1321,7 @@
                   </div>
                   <div>
                     <strong>Future scope:</strong><br />
-                    This console could integrate maps, phone numbers and a ticket-wise tracking system
+                    This console can integrate maps, phone numbers and a ticket-wise tracking system
                     so students can follow the status of their requests.
                   </div>
                 </div>
@@ -1360,8 +1333,8 @@
       </section>
 
       <div class="command-bar">
-        <span>Hint: Use the left dock (🪐 📚 🎓 📡 📨) to switch between SPU orbits. This entire interface is a single “holographic” window.</span>
-        <span class="cmd-key">Prototype · Designed by Sajidali Momin</span>
+        <span>Use the left dock (🪐 📚 🎓 📡 📨) to switch between SPU orbits. This entire experience is a single “holographic” window.</span>
+        <span class="cmd-key">Prototype · Designed by Sajid Ali Momin</span>
       </div>
 
       <div class="footer-note">
@@ -1371,26 +1344,31 @@
   </div>
 
   <script>
+    // ============ CONFIG: change this when you deploy backend ============
+    var API_BASE = "http://localhost:5000";
+    // When you deploy: e.g. "https://spu-backend.onrender.com"
+
     // CLOCK (IST style)
     function updateClock() {
-      const now = new Date();
-      const time = now.toLocaleTimeString("en-IN", { hour12: false });
-      document.getElementById("clock").textContent = time;
+      var now = new Date();
+      var time = now.toLocaleTimeString("en-IN", { hour12: false });
+      var clockEl = document.getElementById("clock");
+      if (clockEl) clockEl.textContent = time;
     }
     setInterval(updateClock, 1000);
     updateClock();
 
     // SECTION SWITCHING
-    const dockButtons = document.querySelectorAll(".dock-btn");
-    const sections = {
+    var dockButtons = document.querySelectorAll(".dock-btn");
+    var sections = {
       home: document.getElementById("section-home"),
       academics: document.getElementById("section-academics"),
       student: document.getElementById("section-student"),
       notices: document.getElementById("section-notices"),
       contact: document.getElementById("section-contact")
     };
-    const windowTitle = document.getElementById("windowTitle");
-    const titles = {
+    var windowTitle = document.getElementById("windowTitle");
+    var titles = {
       home: "Home · Holo Overview",
       academics: "Academics · Galaxy",
       student: "Student Orbit",
@@ -1398,157 +1376,189 @@
       contact: "Contact Console"
     };
 
-    dockButtons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        const target = btn.getAttribute("data-target");
+    function switchSection(target) {
+      for (var key in sections) {
+        if (sections.hasOwnProperty(key)) {
+          if (sections[key]) {
+            sections[key].classList.remove("active");
+          }
+        }
+      }
+      if (sections[target]) {
+        sections[target].classList.add("active");
+      }
+      if (windowTitle && titles[target]) {
+        windowTitle.textContent = titles[target];
+      }
+    }
 
-        dockButtons.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
+    for (var i = 0; i < dockButtons.length; i++) {
+      dockButtons[i].addEventListener("click", function () {
+        var target = this.getAttribute("data-target");
 
-        Object.values(sections).forEach(sec => sec.classList.remove("active"));
-        if (sections[target]) sections[target].classList.add("active");
+        for (var j = 0; j < dockButtons.length; j++) {
+          dockButtons[j].classList.remove("active");
+        }
+        this.classList.add("active");
 
-        windowTitle.textContent = titles[target] || "SPU Holo-Core";
+        switchSection(target);
       });
-    });
+    }
 
     // THEME TOGGLE
-    const themeToggle = document.getElementById("themeToggle");
-    const themeIcon = document.getElementById("themeIcon");
-    const themeLabel = document.getElementById("themeLabel");
+    var themeToggle = document.getElementById("themeToggle");
+    var themeIcon = document.getElementById("themeIcon");
+    var themeLabel = document.getElementById("themeLabel");
 
     function applyTheme(theme) {
       if (theme === "light") {
         document.body.classList.add("light");
-        themeIcon.textContent = "🌙";
-        themeLabel.textContent = "Dark mode";
+        if (themeIcon) themeIcon.textContent = "🌙";
+        if (themeLabel) themeLabel.textContent = "Dark mode";
       } else {
         document.body.classList.remove("light");
-        themeIcon.textContent = "☀";
-        themeLabel.textContent = "Light mode";
+        if (themeIcon) themeIcon.textContent = "☀";
+        if (themeLabel) themeLabel.textContent = "Light mode";
       }
-      localStorage.setItem("spu-holo-theme", theme);
+      try {
+        localStorage.setItem("spu-holo-theme", theme);
+      } catch (e) {
+        // ignore storage errors
+      }
     }
 
-    const savedTheme = localStorage.getItem("spu-holo-theme") || "dark";
+    var savedTheme = "dark";
+    try {
+      savedTheme = localStorage.getItem("spu-holo-theme") || "dark";
+    } catch (e) {}
     applyTheme(savedTheme);
 
-    themeToggle.addEventListener("click", () => {
-      const next = document.body.classList.contains("light") ? "dark" : "light";
-      applyTheme(next);
-    });
+    if (themeToggle) {
+      themeToggle.addEventListener("click", function () {
+        var next = document.body.classList.contains("light") ? "dark" : "light";
+        applyTheme(next);
+      });
+    }
 
-    // RESULT DEMO
+    // RESULT DEMO – CALL BACKEND
     function lookupResult() {
-      const seatInput = document.getElementById("resultSeat");
-      const output = document.getElementById("resultOutput");
-      const seat = (seatInput.value || "").trim().toUpperCase();
+      var seatInput = document.getElementById("resultSeat");
+      var output = document.getElementById("resultOutput");
+      if (!seatInput || !output) return;
+
+      var seat = (seatInput.value || "").trim().toUpperCase();
 
       if (!seat) {
         output.innerHTML = '<span class="error">Please enter a seat number.</span>';
         return;
       }
 
-      const mockResults = {
-        "SPU001": {
-          name: "Aarav Patel",
-          seat: "SPU001",
-          programme: "M.Sc. (Information Technology)",
-          semester: "Sem-2",
-          sgpa: "9.12"
-        },
-        "SPU002": {
-          name: "Khushi Shah",
-          seat: "SPU002",
-          programme: "B.Sc. (Computer Science)",
-          semester: "Sem-4",
-          sgpa: "8.74"
-        }
-      };
+      output.textContent = "Searching…";
 
-      const data = mockResults[seat];
-      if (!data) {
-        output.innerHTML = '<span class="error">No demo result found for that seat number.</span>';
-        return;
-      }
-
-      output.innerHTML =
-        "<strong>" + data.name + "</strong><br>" +
-        "Seat: " + data.seat + "<br>" +
-        "Programme: " + data.programme + "<br>" +
-        "Semester: " + data.semester + "<br>" +
-        "SGPA: " + data.sgpa;
+      fetch(API_BASE + "/api/results?seat=" + encodeURIComponent(seat))
+        .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+        .then(function (result) {
+          if (!result.ok) {
+            throw new Error(result.data.error || "Result not found.");
+          }
+          var data = result.data;
+          output.innerHTML =
+            "<strong>" + data.name + "</strong><br>" +
+            "Seat: " + data.seat + "<br>" +
+            "Programme: " + data.programme + "<br>" +
+            "Semester: " + data.semester + "<br>" +
+            "SGPA: " + data.sgpa;
+        })
+        .catch(function () {
+          output.innerHTML = '<span class="error">No result found or server error.</span>';
+        });
     }
 
-    // CONTACT DEMO
-    function handleContact(e) {
-      e.preventDefault();
-      const name = document.getElementById("name").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const message = document.getElementById("message").value.trim();
+    // CONTACT FORM – CALL BACKEND
+    function handleContact(evt) {
+      evt.preventDefault();
+      var nameEl = document.getElementById("name");
+      var emailEl = document.getElementById("email");
+      var messageEl = document.getElementById("message");
+      if (!nameEl || !emailEl || !messageEl) return;
+
+      var name = nameEl.value.trim();
+      var email = emailEl.value.trim();
+      var message = messageEl.value.trim();
 
       if (!name || !email || !message) {
         alert("Please fill in Name, Email and Message.");
         return;
       }
 
-      alert("Transmission simulated.\n\nOn GitHub Pages this is a front-end demo only. In a real system, this would send your message to the university helpdesk.");
-      e.target.reset();
+      fetch(API_BASE + "/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: name, email: email, message: message })
+      })
+        .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+        .then(function (result) {
+          if (!result.ok) {
+            throw new Error(result.data.error || "Failed to submit.");
+          }
+          alert(result.data.message || "Your message has been recorded on the server.");
+          evt.target.reset();
+        })
+        .catch(function () {
+          alert("Unable to send message. Please try again.\n\n(Server error)");
+        });
     }
 
-    // DEMO NOTICES
-    function loadDemoNotices() {
-      const announcementList = document.getElementById("announcementList");
-      const newsList = document.getElementById("newsList");
+    // NOTICES – CALL BACKEND
+    function loadNotices() {
+      var announcementList = document.getElementById("announcementList");
+      var newsList = document.getElementById("newsList");
+      if (!announcementList || !newsList) return;
 
-      const announcements = [
-        {
-          type: "Exam",
-          date: "12 March 2025",
-          text: "UG & PG semester examination timetables have been published on the examination portal."
-        },
-        {
-          type: "Admission",
-          date: "05 April 2025",
-          text: "Online application window for the new academic year opens from 10 April."
-        }
-      ];
+      fetch(API_BASE + "/api/notices")
+        .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+        .then(function (result) {
+          if (!result.ok) throw new Error("Failed to load notices");
+          var data = result.data;
 
-      const news = [
-        {
-          type: "Event",
-          text: "National seminar on Emerging Technologies in Computer Science hosted by the PG Department."
-        },
-        {
-          type: "Achievement",
-          text: "SPU students secure top ranks in inter-university cultural and sports competitions."
-        }
-      ];
+          announcementList.innerHTML = "";
+          for (var i = 0; i < data.announcements.length; i++) {
+            var item = data.announcements[i];
+            var li = document.createElement("li");
+            li.innerHTML =
+              "<div style='font-size:0.74rem;color:var(--primary-strong);text-transform:uppercase;letter-spacing:0.12em;'>" +
+              item.type + " · " + item.date + "</div>" +
+              "<div>" + item.text + "</div>";
+            announcementList.appendChild(li);
+          }
 
-      announcementList.innerHTML = "";
-      announcements.forEach(item => {
-        const li = document.createElement("li");
-        li.innerHTML =
-          "<div style='font-size:0.74rem;color:var(--primary-strong);text-transform:uppercase;letter-spacing:0.12em;'>" +
-          item.type + " · " + item.date + "</div>" +
-          "<div>" + item.text + "</div>";
-        announcementList.appendChild(li);
-      });
-
-      newsList.innerHTML = "";
-      news.forEach(item => {
-        const li = document.createElement("li");
-        li.innerHTML =
-          "<div style='font-size:0.74rem;color:var(--primary-strong);text-transform:uppercase;letter-spacing:0.12em;'>" +
-          item.type + "</div>" +
-          "<div>" + item.text + "</div>";
-        newsList.appendChild(li);
-      });
+          newsList.innerHTML = "";
+          for (var j = 0; j < data.news.length; j++) {
+            var nItem = data.news[j];
+            var li2 = document.createElement("li");
+            li2.innerHTML =
+              "<div style='font-size:0.74rem;color:var(--primary-strong);text-transform:uppercase;letter-spacing:0.12em;'>" +
+              nItem.type + "</div>" +
+              "<div>" + nItem.text + "</div>";
+            newsList.appendChild(li2);
+          }
+        })
+        .catch(function () {
+          announcementList.innerHTML = "<li>Unable to load notices from server.</li>";
+          newsList.innerHTML = "<li>Unable to load news from server.</li>";
+        });
     }
 
-    // FOOTER YEAR & INIT
-    document.getElementById("yearSpan").textContent = new Date().getFullYear();
-    window.addEventListener("load", loadDemoNotices);
+    // FOOTER YEAR
+    var yearSpan = document.getElementById("yearSpan");
+    if (yearSpan) {
+      yearSpan.textContent = new Date().getFullYear();
+    }
+
+    // INIT
+    window.addEventListener("load", function () {
+      loadNotices();
+    });
   </script>
 </body>
 </html>
