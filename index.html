@@ -1008,7 +1008,7 @@
                 left: 1rem;
                 right: 1rem;
                 margin-top: 0.4rem;
-                z-index: 40;
+                z-index: 999;
             }
 
             #mainNav ul {
@@ -1061,7 +1061,8 @@
 		
 		@media (max-width: 720px) {
     header {
-        position: static;   /* instead of sticky */
+        position: relative;   /* instead of sticky */
+		z-index:200;
     }
 }
 
